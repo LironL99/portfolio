@@ -19,7 +19,7 @@ This lab implements an assembly program to calculate the number of zero bits in 
   \]
 
 - The function calculates the count of zero bits for each ID element:
-  
+
   \[
   \forall i \in [0, 7]: \quad \text{ParityZeros}[i] = \text{Number of zeros in } ID[i]
   \]
