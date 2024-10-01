@@ -11,7 +11,7 @@ This task involves the construction and simulation of a MUX and a Barrel Shift R
    - Simulations were run with a square wave input at 1 MHz and an output capacitance of 100 fF. The order of inputs was changed, and the results were analyzed for correctness.
 
 2. **Performance Measurements**:
-   - The overall \( T_{pd} \) and \( T_{pHL} \) delays of the MUX were measured.
+   - The overall T_pd and T_pHL delays of the MUX were measured.
    - Documentation of the measurement process was included, detailing how the values were obtained.
 
 3. **Layout Design and Testing**:
@@ -29,12 +29,9 @@ This task involves the construction and simulation of a MUX and a Barrel Shift R
    - A test bench was constructed with binary inputs corresponding to the group number, and simulations were conducted to verify the correct operation of the register.
 
 3. **Performance Measurements**:
-   - The \( T_{pd} \) and \( T_{pHL} \) delays were measured for different configurations of the register.
+   - The T_pd and T_pHL delays were measured for different configurations of the register.
    - The methodology for obtaining these measurements was documented in detail.
 
 4. **Layout Design and Testing**:
    - A layout for the Barrel Shift Register was created, ensuring compliance with DRC and LVS requirements.
    - PEX validation was performed, followed by simulations that compared the performance before and after PEX.
-
-### Collaboration
-Collaboration with a partner throughout this task enhanced the understanding of VLSI design and simulation.
