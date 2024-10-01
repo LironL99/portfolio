@@ -1,4 +1,5 @@
-# Labs Directory
+# Introduction to Computers - Labs
+
 
 ## Course Overview
 **Course Title**: Introduction to Computers (361-1-3201)  
