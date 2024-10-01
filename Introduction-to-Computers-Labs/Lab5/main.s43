@@ -1,0 +1,64 @@
+#include "bsp.h"
+
+             NAME   MAIN
+             PUBLIC state,main,sec0,sec1,min0,min1,ticVal,CycleNum,tocVal
+             PUBLIC ARR1,ARR2,Identical_indices_amount,SIZE,Freq,flag      
+             EXTERN SysConfig,StartC0,,delay,test,StartPB3
+             EXTERN Lcd_write,ClrLEDs,IncLED,DecLED
+             
+;----------------------------------------------------------------------------------
+             ORG      DataSegStart         ; Begins a DATA segment
+             
+state                     DW   0                        ; state variable
+sec0                      DW   -1  ;[m1,m0:s1,(s0)]
+sec1                      DW   0   ;[m1,m0:(s1),s0]
+min0                      DW   0   ;[m1,(m0):s1,s0]
+min1                      DW   0   ;[(m1),m0:s1,s0]
+ticVal                    DW   0   
+tocVal                    DW   0
+CycleNum                  DW   0   ;number of timerOF
+Freq                      DC16 0,55,110,166,221,276,331,386,442,497,552
+flag                      DW   0      
+;-----------------test code variables--------------------------------------------------
+ARR1                      DC16 0,8,6,6,1,8,1,9  ;ID1
+ARR2                      DC16 0,9,1,4,4,7,7,3  ;ID2
+Identical_indices_amount  DS16 8
+SIZE                      DW   9
+;-------------------------------------------------------------------------------------  
+
+             ;RSEG    CSTACK    ; shows to compiler where is the RAM populating limit
+                                ; can be ignored
+                                
+;-------------------------------------------------------------------------------------
+             ORG     CodeSegStart       ; Program Reset = Begins a CODE segment
+             
+main         mov.w   #StackTosStart,SP  ; Initialize stack pointer to the RAM end 
+             call    #SysConfig
+             clr     state              ; set to idle state at the beginning
+;---------------------- FSM_loop -------------------------------------
+state0       cmp     #0x00,state         ;check if state0           
+             jnz     state1
+             bis.w   #CPUOFF+GIE,SR 
+             nop
+
+state1       cmp     #0x01,state         ;check if state1
+             jnz     state2  
+             mov     #1, flag
+             call    #StartC0            ;start timerA0 
+                       
+state2       cmp     #0x02,state         ;check if state2
+             jnz     state3 
+             call    #test               ;measure runtime
+             clr     state 
+             
+state3       cmp     #0x03,state         ;check if state2
+             jnz     state0 
+             mov     #3, flag
+             mov     #Freq ,R13
+             call    #StartPB3             
+             clr     state                   
+             jmp     state0 
+
+
+             
+             END
