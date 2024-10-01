@@ -1,0 +1,67 @@
+#include  "bsp.h"
+
+             NAME   MAIN
+             PUBLIC state,state1,main,Clear1,Clear2
+             EXTERN SysConfig,DecLEDRTL,SingleLEDRTL,PWM,PWM2,ClearIFG,ClrLEDs
+              
+             
+;-------------------------------------------------------------------------------
+             ORG      DataSegStart       ; Begining of the Data segment
+             
+state        DW   0                      ; state variable
+bip          DW   5
+
+;-------------------------------------------------------------------------------
+             ORG     CodeSegStart       ;Program Reset = Begins a CODE segment
+             
+main         mov.w   #StackTosStart,SP  ;Initialize stack pointer to the RAM end 
+             call    #SysConfig
+             mov     #0xff, R8
+             mov     #1,R9
+             clr     state              ;set to idle state at the beginning
+;---------------------- FSM_loop -----------------------------------------------
+state0       cmp     #0x00,state        ;check if state0           
+             jnz     state1             ;if not - continue and check state1
+Sleep        call    #ClrLEDs           ;if state0 - clear the LEDs
+
+             bis.w   #CPUOFF+GIE,SR     ;sleep mode LPM0
+;-------------------------------------------------------------------------------
+state1       cmp     #0x01,state        ;check if state1
+             jnz     state2             ;if not - continue and check state2
+             mov     #21, R10           ;if state1 - preperation for 10 sec
+             DINT                       ;prevent possible state change
+             call    #DecLEDRTL         ;if state1 - decrease LEDs in series
+             EINT                       ;enable possible state change
+Clear1       push    #1                 ;push the state
+             call    #ClearIFG          ;clear flag 
+             jmp     Sleep               
+;---------------------------------------------------------------------             
+state2       cmp     #0x02,state        ;check if state2
+             jnz     state3             ;if not - continue and check state3
+             mov     #15, R10           ;if state2 - preperation for 7 sec
+             DINT                       ;prevent possible state change
+             call    #SingleLEDRTL      ;if state2 - Change LEDS RTL in series
+             EINT                       ;prevent possible state change
+Clear2       push    #2                 ;push the state
+             call    #ClearIFG          ;clear flag
+             jmp     Sleep
+;---------------------------------------------------------------------             
+state3       cmp     #0x03,state        ;check if state3
+             jnz     state4             ;if not - continue and check state0
+             call    #ClrLEDs           ;if state3 - clear the LEDs
+             call    #PWM               ;if state3 - PMW of 2.5Khz DC=75%
+             jmp     state4             ;return to the start of the checking
+;---------------------------------------------------------------------
+state4       cmp     #0x04,state        ;check if state4
+             jnz     state0             ;if not - continue and check state0
+             DINT
+             call    #ClrLEDs           ;if state4 - clear the LEDs
+             push    bip                ;How many second
+             call    #PWM2               ;if state4 - PMW of 2.0Khz DC=50%
+             EINT 
+Clear4       push    #4                 ;push the state
+             call    #ClearIFG          ;clear flag
+             jmp     Sleep
+             
+                 
+             END
