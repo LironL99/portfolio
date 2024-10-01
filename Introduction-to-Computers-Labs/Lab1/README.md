@@ -40,9 +40,9 @@ This is because the binary representations differ in two bits.
 - Size = \(0x212E - 0x2100 = 0x002E = 46\) (decimal)
 
 ### Runtime:
-- \[
+
 runtime= 264*Tmclk= 264*2^ (-20) =2.5177*10^ (-4) sec
-\]
+
 
 ### Files:
 - `task1.s43`: Source code implementing the comparison logic.
