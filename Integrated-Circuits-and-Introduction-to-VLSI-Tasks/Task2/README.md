@@ -6,7 +6,7 @@ This task involves the construction and simulation of a MUX and a Barrel Shift R
 ### Part A: Building the MUX
 1. **Schematic Design and Testing**:
    - A 1x2 MUX was implemented using the complementary MOS (CMOS) method.
-   - A schematic of the MUX was created, ensuring optimal \( \beta \) calculated for the NMOS default transistor.
+   - A schematic of the MUX was created, ensuring optimal beta calculated for the NMOS default transistor.
    - A test bench (TB) was constructed, applying different logical signals (0 and 1) to the MUX inputs.
    - Simulations were run with a square wave input at 1 MHz and an output capacitance of 100 fF. The order of inputs was changed, and the results were analyzed for correctness.
 
