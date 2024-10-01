@@ -1,0 +1,294 @@
+#include  "bsp.h"
+
+              MODULE HAL
+              PUBLIC SysConfig,PBs_handler,ADC10_ISR,delay
+              PUBLIC PrintVavg,PrintPB0,PrintPWM,PrintSin,PrintTri,PrintResult
+              PUBLIC PrintPB0,PrintVavg,LCD_clear,LCD_clear,LCDrestart,PrintVmin,PrintVmax              
+              EXTERN GPIOconfig,TIMERconfig,ADCconfig,stopsample
+              EXTERN state,,flag,flag2,IntPendReg, WaveDefine,NewSample
+;------------------------------------------------------------------------------- 
+;             MACRO FUNCTIONS FOR LCD  
+;-------------------------------------------------------------------------------            
+LCDcmd        MACRO   command
+              call    #delay5msec
+              mov.b   command,&P2OUT
+              call    #LCD_strobe
+              ENDM 
+;------------------------------------------------------------------------------- 
+LCDdata       MACRO   char
+              call    #delay5msec
+              mov.b   #0x00,&P2OUT
+              bis.b   #0x40,&P1OUT  ;RS=1 Char mode
+              mov.b   char,&P2OUT
+              call    #LCD_strobe
+              bic.b   #0x40,&P1OUT  ;RS=0 
+              ENDM              
+;-------------------------------------------------------------------------------         
+              RSEG   CODE
+;------------------------------------------------------------------------------- 
+;             System Configuration  
+;------------------------------------------------------------------------------- 
+SysConfig     call   #GPIOconfig
+              call   #TIMERconfig
+              call   #ADCconfig
+              ret
+;-------------------------------------------------------------------------------  
+;            PORT1 Interrupt Service Routine
+;------------------------------------------------------------------------------- 
+PBs_handler  push.w  #debounceVal
+             call    #delay    
+             bit.b   #PB0,&P1IFG         ;check if PB0 is pushed
+             jnz     PB0sel 
+             bit.b   #PB1,&P1IFG         ;check if PB1 is pushed
+             jnz     PB1sel
+             bit.b   #PB2,&P1IFG         ;check if PB2 is pushed
+             jnz     PB2sel
+             reti                        ; interrupt hapened from another source
+              
+PB0sel       mov     #1,state 
+             mov     #PB0,IntPendReg     ; which IntPend to clear
+             jmp     exitLPM0
+PB1sel       mov     #2,state
+             mov     #PB1,IntPendReg     ; which IntPend to clear
+             jmp     exitLPM0
+PB2sel       mov     #4,state            ; idle state
+             mov     #PB2,IntPendReg     ; which IntPend to clear 
+             jmp     exitLPM0
+             
+exitLPM0     bic     #CPUOFF,0(SP)       ; Exit LMP0
+             bic.b   IntPendReg,&P1IFG 
+             reti
+;------------------------------------------------------------------------------- 
+;            ADC10 Interrupt Service Routine
+;-------------------------------------------------------------------------------
+ADC10_ISR              
+             mov.w   &ADC10MEM,NewSample
+             bic.w   #CPUOFF,0(SP)
+             xor.b   #0x10,&P1OUT
+             reti                      
+;-------------------------------------------------------------------------------
+;            Polling based Delay function
+;-------------------------------------------------------------------------------                   
+delay        pop     R4      ; save return address
+             pop     R5      ; get delay value
+             
+L            dec.w   R5      ;function body begin                 
+             jnz     L       ;function body end
+             
+             push.w  R4
+             ret
+;-------------------------------------------------------------------------------                
+delay15msec  push    #5240
+             call    #delay
+             ret
+;-------------------------------------------------------------------------------                
+delay5msec   push    #1740
+             call    #delay
+             ret
+;-------------------------------------------------------------------------------                
+delay200usec push    #65
+             call    #delay      
+             ret
+;-------------------------------------------------------------------------------
+delay1sec    mov     #66,R14
+L1sec        call    #delay15msec
+             dec     R14
+             jnz     L1sec
+             ret
+             
+;-------------------------------------------------------------------------------
+;            LCD
+;-------------------------------------------------------------------------------              
+LCDrestart   bic.b   #0xE0,&P1OUT    ;RS=0,RW=0, E=0
+             call    #delay15msec
+             mov.b   #0x3F,&P2OUT
+             call    #LCD_strobe
+             call    #delay5msec
+             mov.b   #0x3F,&P2OUT
+             call    #LCD_strobe
+             call    #delay200usec
+             mov.b   #0x3F,&P2OUT
+             call    #LCD_strobe
+             LCDcmd  #0x3C
+             LCDcmd  #0x0F
+             LCDcmd  #0x01
+             LCDcmd  #0x06
+             LCDcmd  #0x80
+             LCDcmd  #0x02
+             ret
+;-------------------------------------------------------------------------------                                    
+LCD_strobe   bis.b   #0x20,&P1OUT
+             NOP
+             NOP
+             bic.b   #0x20,&P1OUT
+             ret
+                           
+;-------------------------------------------------------------------------------
+LCD_clear  //LCDcmd  #0x01
+             LCDcmd  #0x02
+             ret
+;-------------------------------------------------------------------------------                             
+PrintPB0       LCDdata #0x53  ;'S'
+               LCDdata #0x69   ;'i'
+               LCDdata #0x67   ;'g'
+               LCDdata #0x6E   ;'n'
+               LCDdata #0x61   ;'a'
+               LCDdata #0x6C   ;'l'
+               LCDdata #20     ;'space'
+               LCDdata #0x53  ;'S'
+               LCDdata #0x68   ;'h'
+               LCDdata #0x61   ;'a'
+               LCDdata #0x70  ;'p'
+               LCDdata #0x65   ;'e' 
+               LCDdata #0x3A   ;'u' 
+               LCDcmd  #0xC0 
+f               ret
+;-------------------------------------------------------------------------------
+PrintPWM
+               LCDcmd  #0xC0   ;bring cursor to the start of the second row
+               LCDdata #0x70  ;'p'
+               LCDdata #0x77  ;'w' 
+               LCDdata #0x6D   ;'m'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDcmd  #0x0C
+               ret    
+;-------------------------------------------------------------------------------
+PrintSin       LCDcmd  #0xC0   ;bring cursor to the start of the second row
+               LCDdata #0x53   ;'s' 
+               LCDdata #0x69   ;'i'
+               LCDdata #0x6E   ;'n'
+               LCDdata #0x65   ;'e' 
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDcmd #0x0C
+               ret
+;-------------------------------------------------------------------------------               
+PrintTri       LCDcmd  #0xC0   ;bring cursor to the start of the second row 
+               LCDdata #0x74   ;'t'
+               LCDdata #0x72  ;'r'
+               LCDdata #0x69   ;'i'
+               LCDdata #0x61   ;'a'
+               LCDdata #0x6E   ;'n'
+               LCDdata #0x67   ;'g' 
+               LCDdata #0x6C   ;'l'
+               LCDdata #0x65   ;'e'
+               LCDdata #20     ;'space'
+               LCDcmd  #0x0C               
+               ret    
+;-------------------------------------------------------------------------------              
+PrintVavg      LCDdata  #0x56  ;'V'
+               LCDdata  #0x61  ;'a'
+               LCDdata  #0x76  ;'v'
+               LCDdata  #0x67  ;'g'
+               LCDdata  #0x3D  ;'='
+               LCDcmd   #0x14
+               LCDcmd   #0x14
+               LCDcmd   #0x14      
+               ret           
+;-------------------------------------------------------------------------------              
+PrintResult    pop      R15           ;we need to push 3 values before 
+               call     #ASCIIconver   ;0.01       
+               LCDdata  R6    
+               call     #Steps2L
+               call     #ASCIIconver ;0.10     
+               LCDdata  R6    
+               call     #Steps2L
+               LCDdata  #0x2E        ;'.'
+               call     #Steps2L
+               call     #ASCIIconver ;1.00
+               LCDdata  R6   
+               LCDcmd   #0x14   
+               LCDcmd   #0x14
+               LCDcmd   #0x14  
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDcmd  #0xC0   ;bring cursor to the start of the second row 
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'      
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDcmd   #0x0C
+               push     R15     
+               ret
+;-------------------------------------------------------------------------------                
+PrintVmin      pop      R15
+               LCDdata  #0x56  ;'V' ;print Vmin
+               LCDdata  #0x6D  ;'m'
+               LCDdata  #0x69  ;'i'
+               LCDdata  #0x6E  ;'n'
+               LCDdata  #0x3D  ;'='
+               LCDcmd   #0x14
+               LCDcmd   #0x14
+               LCDcmd   #0x14                
+               call     #ASCIIconver   ;0.01       
+               LCDdata  R6    
+               call     #Steps2L
+               call     #ASCIIconver ;0.10     
+               LCDdata  R6    
+               call     #Steps2L
+               LCDdata  #0x2E        ;'.'
+               call     #Steps2L
+               call     #ASCIIconver ;1.00
+               LCDdata  R6
+               LCDcmd   #0x14   
+               LCDcmd   #0x14
+               LCDcmd   #0x14  
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDdata #20     ;'space'
+               LCDcmd  #0xC0   ;bring cursor to the start of the second row 
+               push     R15
+               ret
+               
+               
+PrintVmax      pop R15
+               LCDdata  #0x56  ;'V'  ;print Vmax
+               LCDdata  #0x6D  ;'m'
+               LCDdata  #0x61  ;'a'
+               LCDdata  #0x78  ;'x'
+               LCDdata  #0x3D  ;'='
+               LCDcmd   #0x14
+               LCDcmd   #0x14
+               LCDcmd   #0x14                
+               call     #ASCIIconver   ;0.01       
+               LCDdata  R6    
+               call     #Steps2L
+               call     #ASCIIconver ;0.10     
+               LCDdata  R6    
+               call     #Steps2L
+               LCDdata  #0x2E        ;'.'
+               call     #Steps2L
+               call     #ASCIIconver ;1.00
+               LCDdata  R6
+               LCDcmd   #0x0C
+               push     R15     
+               ret
+;-------------------------------------------------------------------------------               
+Steps2L        LCDcmd   #0x10    ;move the cursor 2 left
+               LCDcmd   #0x10
+               ret
+;-------------------------------------------------------------------------------               
+ASCIIconver    pop      R14     ;we need to push 
+               pop      R6
+               add      #0x0030,R6              
+               push     R14
+               ret
+;-------------------------------------------------------------------------------               
+             ENDMOD
+             END
