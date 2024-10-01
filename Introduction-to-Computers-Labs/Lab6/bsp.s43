@@ -1,0 +1,83 @@
+#include  "bsp.h"
+
+            MODULE BSP
+            PUBLIC GPIOconfig,TIMERconfig,ADCconfig,startsample,stopsample,startsample3,stopsample3
+            EXTERN main,PBs_handler,ADC10_ISR,LCDrestart
+            
+            RSEG   CODE                    
+;-----------------------------------------------------------------------------  
+;           GPIO congiguration
+;-----------------------------------------------------------------------------
+GPIOconfig 
+             mov.w   #WDTPW+WDTHOLD,&WDTCTL   ; hold watchdog timer
+            ; PushButtons Setup
+             bic.b   #0x07,&P1SEL
+             bic.b   #0x07,&P1DIR
+             bis.b   #0x03,&P1IES ; pull-up
+             bic.b   #0x04,&P1IES ; pull-down
+             bis.b   #0x07,&P1IE
+             bic.b   #0x0F,&P1IFG    ;clear pending interrupts
+             
+             ; LCD Setup
+             bic.b   #0xFF,&P2SEL ; GPIO capability
+             bis.b   #0xFF,&P2DIR ; output dir
+             bic.b   #0xF0,&P1SEL 
+             bis.b   #0xF0,&P1DIR
+             call    #LCDrestart              
+             ret
+             
+;-------------------------------------------------------------------------------
+;            Timers congiguration 
+;-------------------------------------------------------------------------------
+TIMERconfig 
+             nop   ;timers congiguration
+             ret
+;------------------------------------------------------------------------------- 
+;            ADC congiguration 
+;-------------------------------------------------------------------------------
+ADCconfig    bis.b   #0x08,&ADC10AE0        ;P1.3 A3 
+             mov.w   #ADC10SHT_2+ADC10ON+ADC10IE+MSC+ADC10SC ,&ADC10CTL0 
+             ;16 x ADC10CLKs,ADC10_on,Interrupt Enable,Multiple SampleConversion,Start sample-and-conversion
+             
+             mov.w   #INCH_3+ADC10DIV_0+ADC10SSEL_3+CONSEQ_2 ,&ADC10CTL1
+             ;Selects Channel 3, Clock Divider 1, SMCLK,Repeat single channel
+             
+             bis     #ENC ,&ADC10CTL0 ;Enable Conversion   
+             ret
+;-------------------------------------------------------------------------------            
+startsample bis.w    #ADC10IE,&ADC10CTL0  ;Interrupt Enable
+            bis.w    #ADC10SC,&ADC10CTL0  ;Start sample-and-conversion  
+           
+            ret                  
+;-------------------------------------------------------------------------------                  
+stopsample  bic.w    #ADC10IE,&ADC10CTL0  ;Interrupt Disable
+            bic.w    #ADC10SC,&ADC10CTL0
+            
+           
+            ret          
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------            
+startsample3 bic     #ENC ,&ADC10CTL0 ;Disable Conversion
+             mov.w   #ADC10SHT_3+ADC10ON+ADC10IE+MSC+ADC10SC ,&ADC10CTL0
+             bis     #ENC ,&ADC10CTL0 ;Enable Conversion
+             bis.w    #ADC10IE,&ADC10CTL0  ;Interrupt Enable
+             bis.w    #ADC10SC,&ADC10CTL0  ;Start sample-and-conversion
+            ret                  
+;-------------------------------------------------------------------------------                  
+stopsample3   bic     #ENC ,&ADC10CTL0 ;Disable Conversion
+             mov.w   #ADC10SHT_2+ADC10ON+ADC10IE+MSC+ADC10SC ,&ADC10CTL0
+             bis     #ENC ,&ADC10CTL0 ;Enable Conversion
+             bic.w    #ADC10IE,&ADC10CTL0  ;Interrupt Disable
+             bic.w    #ADC10SC,&ADC10CTL0
+            ret             
+     COMMON  INTVEC   ; Interrupt Vectors-Begins a common segment name of INTVEC 
+;-------------------------------------------------------------------------------
+             ORG     PORT1_VECTOR       ;PORT1 Interrupt Vector
+             DW      PBs_handler        ; interrupt handler = ISR
+             ORG     RESET_VECTOR       ; MSP430 RESET Vector
+             DW      main  
+             ORG     ADC10_VECTOR            ; ADC10 Vector
+             DW      ADC10_ISR
+            
+             ENDMOD
+             END
