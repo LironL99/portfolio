@@ -14,15 +14,15 @@ This lab implements an assembly program to calculate the number of zero bits in 
 
 - Implement the following function:
 
-\[
-\text{ParityZerosFunc}(int ID[], int size, int ParityZero[])
-\]
+```
+ParityZerosFunc(int ID[], int size, int ParityZero[])
+```
 
 - The function calculates the count of zero bits for each ID element:
 
-\[
-\forall i \in [0, 7]: \quad \text{ParityZeros}[i] = \text{Number of zeros in } ID[i]
-\]
+```
+∀ i ∈ [0, 7]:  ParityZeros[i] = Zero's amount of ID[i]
+```
 
 - Call the function twice in the main program:
 
@@ -48,7 +48,9 @@ ParityZerosFunc(ID2, IDsize, ParityZeros2);
 - Size = \(0x2158 - 0x2100 = 0x0058 = 88\) (decimal)
 
 ### Runtime:
-- \(\text{runtime} = 575 \times T_{MCLK} = 575 \times 2^{-20} \approx 5.4836 \times 10^{-4} \text{ seconds}\)
+```
+runtime = 575 * Tmclk = 575 * 2^(-20) = 5.4836 * 10^(-4) sec
+```
 
 ### Files:
 - `task2.s43`: Source code implementing the parity zeros calculation.
