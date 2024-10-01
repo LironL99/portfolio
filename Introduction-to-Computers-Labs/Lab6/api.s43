@@ -1,0 +1,200 @@
+#include  "bsp.h"
+
+DIV16bit        MACRO   Divided, Divisor        ;MONE, MECHANE
+                LOCAL   L1, L2, L3 
+                mov.w   Divided, R9            ; Divided registers is R9
+                mov.w   Divisor, R10           ; Divisor registers is R10
+                mov     #17,R12
+                clr     R13                    ; Quotient register
+                clr     R14
+                
+L3              rla     R13
+L1              dec     R12
+                jz      L2
+                rla     R9
+                rlc     R14
+                cmp     R10,R14
+                jlo     L3
+                sub     R10,R14
+                setc
+                rlc     R13
+                jmp     L1
+                
+L2            ; R13 is Quotient             
+              ; R14 is Reminder  
+                
+                ENDM
+;-------------------------------------------------------------------------------
+MULT            MACRO    num, mult
+                LOCAL    Loop, Break
+                clr      R10
+                mov.w    num, R12
+                mov      mult, R13
+Loop            add.w    R12 ,R10
+                dec      R13
+                jz       Break           ;num in R10
+                jmp      Loop
+Break           ENDM
+;-------------------------------------------------------------------------------
+             MODULE API
+             PUBLIC WaveDefine,FindVAVG,FindVmin_max
+             EXTERN PrintPWM,PrintSin,PrintTri,PrintPB0,PrintVavg,PrintResult
+             EXTERN startsample,stopsample,Vmax_3,Vmin_3,PrintVmax,PrintVmin
+             EXTERN state,Vavg ,CountIn1_8,Vmax1_8,LCD_clear,NewSample,oldVavg,startsample3,stopsample3
+             RSEG   CODE   
+;-------------------------------------------------------------------------------
+;            task 1 -wave define 100hz-1khz
+;-------------------------------------------------------------------------------
+WaveDefine         DINT            ;calculate Vmax/8 
+                   mov       #0,NewSample
+                   mov       #100,R15  ; do this 100 times      
+sleep              //cmp       #0x01,state         ;check if state1
+                   //jnz       finish
+                   call      #startsample
+                   bis.w     #CPUOFF+GIE,SR        
+                   cmp       NewSample,Vmax1_8   ;check if new sample is bigger than the current max value
+                   jge       ContinueSample      ;if not bigger - cuntinue
+                   mov       NewSample,Vmax1_8   ;if bigger - make it the new max value
+ContinueSample     dec       R15
+                   jnz       sleep
+                   call      #stopsample
+                   rra       Vmax1_8      ; devide Vmax by 8
+                   rra       Vmax1_8  
+                   rra       Vmax1_8 
+                 
+                   mov       #2000,R15     ;colect number of sampels in range         
+sleep1            // cmp       #0x01,state         ;check if state1
+                  // jnz       finish
+                   mov       #0,NewSample
+                   call      #startsample
+                   bis.w     #CPUOFF+GIE,SR
+                   cmp       NewSample,Vmax1_8   ;check if new sample is bigger than the Vmax/8
+                   jl        Continue            ;if not - continue 
+                   inc       CountIn1_8          ;else - add 1 to counter
+Continue           dec       R15
+                   jnz       sleep1
+                   call      #stopsample
+                   
+                   cmp       #600,CountIn1_8 ; print the type of the wave  50%+ delta
+                   jge       Pwm
+                   cmp       #250,CountIn1_8 ;23%+ delta
+                   jge       Sin
+Tri                call      #LCD_clear
+                   call      #PrintPB0
+                   call      #PrintTri          
+                   jmp       Final   
+                   
+Pwm                call      #LCD_clear
+                   call      #PrintPB0
+                   call      #PrintPWM
+                   jmp       Final   
+                
+Sin                call      #LCD_clear
+                   call      #PrintPB0
+                   call      #PrintSin        
+                   jmp       Final            
+                  
+Final              mov       #0,CountIn1_8     
+                   cmp       #0x01,state
+                   jz        WaveDefine
+finish             call      #stopsample
+                   EINT
+                   ret
+;-------------------------------------------------------------------------------
+;            task 2 -avarage volt
+;------------------------------------------------------------------------------
+FindVAVG           DINT
+                   mov       #0,NewSample
+                   mov       #0,Vavg
+                   mov       #0,oldVavg
+                   mov       #100,R15
+                   
+SleepAVG           dec       R15
+                   jz        preExitAVG
+                   call      #startsample
+                   //cmp       #0x02,state
+                  // jnz       exitAVG
+                   bis.w     #CPUOFF+GIE,SR
+                   add       NewSample,Vavg
+                   jmp       SleepAVG      
+                   
+              
+preExitAVG         call     #stopsample
+                   DIV16bit Vavg,#100
+                   mov      R13,Vavg 
+                   cmp      Vavg,oldVavg
+                   jge      testAVG1
+                   jl       testAVG2
+                 
+testAVG1           mov      oldVavg,R12
+                   mov      Vavg,R4
+                   sub      R4,R12
+                   cmp      #12,R12 ;0.4 
+                   jge      GOODAVG
+                   jl       exitAVG
+                
+testAVG2           mov      oldVavg,R12
+                   mov      Vavg,R4
+                   sub      R12,R4
+                   cmp      #12,R4  ;0.4
+                   jge      GOODAVG
+                   jl       exitAVG                
+                
+GOODAVG            mov      Vavg, oldVavg
+                   push     Vavg
+                   call     #conToVolt
+                   call     #LCD_clear
+                   call     #PrintVavg 
+                   call     #PrintResult      ; print new avg 
+exitAVG            call     #stopsample
+                   EINT
+                   ret
+;-------------------------------------------------------------------------------
+conToVolt          pop      R15                ;we save the adress to go back        ; RegMax/Vcc = Constctv
+                   pop      R6                                                       ; Reg/Constctv = V 
+                   mov      #3, R5
+ctvL               DIV16bit R6,#Constctv           ;now R13 holds the Quotient ;
+                   push     R13                    ;Quotient for print
+                   MULT     R14, #10               ;now reminder*10 is in R10
+                   mov      R10,R6
+                   dec      R5
+                   jz       endCTV
+                   jmp      ctvL
+endCTV             push     R15 
+                   ret                     
+;-------------------------------------------------------------------------------  
+FindVmin_max   
+                   DINT            ;calculate Vmax/min 
+                   mov       #0,NewSample
+                   mov       #0 ,Vmax_3
+                   mov       #0x03E2 ,Vmin_3
+                   mov       #9000,R15  ; do this 100 times      
+sleep3              //cmp       #0x01,state         ;check if state1
+                   //jnz       finish
+                   call      #startsample3
+                   bis.w     #CPUOFF+GIE,SR        
+FindMax            cmp       NewSample,Vmax_3   ;check if new sample is bigger than the current max value
+                   jge       FindMin            ;if not bigger - cuntinue
+                   mov       NewSample,Vmax_3   ;if bigger - make it the new max value
+                   jmp       Continue3
+FindMin            cmp       Vmin_3, NewSample  ;check if new sample is smaller than the current max value       
+                   jge       Continue3          ;if not smaller - cuntinue
+                   mov       NewSample,Vmin_3   ;if smaller - make it the new max value
+Continue3           dec       R15
+                   jnz       sleep3
+                   call     #stopsample3
+                   push     Vmin_3
+                   call     #conToVolt
+                   call     #LCD_clear
+                   call     #PrintVmin
+                   push     Vmax_3
+                   call     #conToVolt
+                   call     #PrintVmax
+exitMin_Max        call     #stopsample3
+                   EINT
+                   ret
+                
+
+
+             ENDMOD    
+             END
