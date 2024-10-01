@@ -49,4 +49,7 @@ Cycle = 1/2^20
 - Size = \(0xC1F2 - 0xC020 = 0x01D2 = 466\) (decimal)
 
 ### Files:
-- `task4.s43`: Source code implementing the interrupt-driven GPIO functionality.
+- `api`: Source code for the API layer.
+- `bsp`: Source code for the Board Support Package.
+- `hal`: Source code for the Hardware Abstraction Layer.
+- `main.s43`: Main source code implementing the interrupt-driven GPIO functionality.
