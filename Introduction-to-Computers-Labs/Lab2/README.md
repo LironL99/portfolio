@@ -1,19 +1,55 @@
-# Lab 2: Parity Zeros Function in Assembly
+# Lab 2: Assembly Language - Parity Zeros Function
 
 ### Overview:
-In this lab, we wrote a function in Assembly that calculates the number of zero bits in each element of an ID array and stores the result in a Parity Zeros array. The task was implemented using the IAR Embedded Workbench.
+This lab implements an assembly program to calculate the number of zero bits in each element of two identification arrays (`ID1` and `ID2`) and stores the results in two separate arrays (`ParityZeros1` and `ParityZeros2`).
 
-### Key Steps:
-1. **Define Arrays in RAM**:  
-   - `ID1`, `ID2`: Arrays containing identification numbers.  
-   - `ParityZeros1`, `ParityZeros2`: Arrays to store the number of zero bits in the corresponding IDs.
+### Task Definition:
+- Define two ID arrays, `ID1` and `ID2`, each of length 8.
+- Create two RAM arrays, `ParityZeros1` and `ParityZeros2`, to store the number of zero bits:
+  
+  ```
+  ParityZeros1 DS16 8
+  ParityZeros2 DS16 8
+  ```
 
-2. **Function Implementation**:  
-   - `ParityZerosFunc(ID[], size, ParityZeros[])`: Calculates and stores the count of zero bits in each ID element.  
-   - The function is called twice, once for `ID1` and once for `ID2`.
+- Implement the following function:
+  
+  \[
+  \text{ParityZerosFunc}(int ID[], int size, int ParityZero[])
+  \]
 
-3. **Debug and Verify**:  
-   - Use the IAR simulator to run and check the program.
+- The function calculates the count of zero bits for each ID element:
+  
+  \[
+  \forall i \in [0, 7]: \quad \text{ParityZeros}[i] = \text{Number of zeros in } ID[i]
+  \]
+
+- Call the function twice in the main program:
+  ```
+  ParityZerosFunc(ID1, IDsize, ParityZeros1);
+  ParityZerosFunc(ID2, IDsize, ParityZeros2);
+  ```
+
+### Implementation Details:
+- **Main**: Loaded data into the stack (result array pointer, array size, and ID array pointer) and called the function twice, once for each ID.
+  
+- **ParityZerosFunc**:
+  - Retrieved values from the stack into registers.
+  
+- **Loop**: For each iteration, decremented the counter and loaded the corresponding value into register `R8`.
+  - After completing iterations, executed the `RET` instruction to finish the function.
+  
+- **SumOnes**: Shifted the number right to sum the least significant bit (LSB) until all bits were processed, resulting in the count of zeros in register `R9`.
+  
+- **ArrAdd**: Calculated the number of zeros by taking the two's complement of `R9` and subtracted it from 16 (the total bits) to find the number of zeros, storing the result in the appropriate index of the result array.
+
+### Size of the Program:
+- Size = \(0x2158 - 0x2100 = 0x0058 = 88\) (decimal)
+
+### Runtime:
+- \[
+\text{runtime} = 575 \times T_{MCLK} = 575 \times 2^{-20} \approx 5.4836 \times 10^{-4} \text{ seconds}
+\]
 
 ### Files:
-- `task2.s43`: Assembly code implementing the function.
+- `task2.s43`: Source code implementing the parity zeros calculation.
