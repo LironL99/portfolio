@@ -1,0 +1,103 @@
+#include  "bsp.h"
+
+             MODULE HAL
+             PUBLIC SysConfig,ClrLEDs,PBs_handler,ClearIFG,DecLED,RTLLED,Invert
+             PUBLIC delay,Delay05sec 
+             EXTERN state, GPIOconfig,state1
+            
+             RSEG   CODE
+;--------------------------------------------------------------------
+;            System Configuration  
+;--------------------------------------------------------------------
+SysConfig    call #GPIOconfig
+             ret
+   
+;--------------------------------------------------------------------
+;Clear LEDs - void function (without arguments and return value)
+;--------------------------------------------------------------------
+ClrLEDs      clr.b LEDsArrPort
+             ret                 
+;----------------------------------------------------------------------- 
+;            PORT2 Interrupt Service Routine
+;-----------------------------------------------------------------------
+PBs_handler  push.w #debounceVal
+             call   #delay    
+             bit.b  #PB0,PBsArrIntPend  ;check if PB0 is pushed
+             jnz    PB0sel 
+             bit.b  #PB1,PBsArrIntPend  ;check if PB1 is pushed
+             jnz    PB1sel
+             bit.b  #PB2,PBsArrIntPend  ;check if PB2 is pushed
+             jnz    PB2sel
+             bit.b  #PB3,PBsArrIntPend  ;check if PB3 is pushed
+             jnz    PB3sel
+             reti                       ; interrupt hapened from another source
+             
+PB0sel       mov    #1,state 
+             mov    #PB0,R4             ; which IntPend to clear
+             jmp    exitLPM0
+PB1sel       mov    #2,state
+             mov    #PB1,R4             ; which IntPend to clear
+             jmp    exitLPM0
+PB2sel       mov    #3,state
+             mov    #PB2,R4             ; which IntPend to clear
+             jmp    exitLPM0
+PB3sel       mov    #4,state
+             mov    #PB3,R4             ; which IntPend to clear
+             jmp    exitLPM0
+
+exitLPM0     bic    #CPUOFF,0(SP)       ; Exit LMP0
+             bic.b  R4,PBsArrIntPend    ;clear the relevant flag
+             pop    R5                  ; save temporary the SR
+             push   #state1             ; push the adress
+             push   R5                  ; push the SR
+             reti
+             
+ClearIFG     pop R4
+             bic.b   R4,PBsArrIntPend   ;clear the relevant flag
+             ret
+;-------------------------------------------------------------
+;             LEDs Decrement
+;-------------------------------------------------------------
+DecLED       mov.b R8 ,LEDsArrPort  
+             dec.b R8
+             ret
+;-------------------------------------------------------------
+;            LEDS Right to left
+;-------------------------------------------------------------
+RTLLED       mov.b R9 ,LEDsArrPort
+             rla.b R9
+             cmp.b #0,R9
+             jnz F
+             mov.b #1,R9
+F            ret
+;-------------------------------------------------------------
+;            invert wave
+;-------------------------------------------------------------
+Invert       xor.b #0x80,PWMPort
+             ret ;2
+;----------------------------------------------------------------------------------------------
+;            Polling based Delay function
+;----------------------------------------------------------------------------------------------                     
+delay        pop   R4           ;2 save return address
+             pop   R5           ;2 get delay value
+L            dec   R5           ;function body begin 
+             jnz   L            ;function body end          
+             push  R4           ;4
+             ret                ;2
+             
+Delay100us   mov   #33,R15      ;delay value              
+L1           dec   R15          ;function body begin               
+             jnz   L1           ;function body end                                
+             ret
+            
+Delay05sec   mov  #5000,R13     ;delay value                
+L2           call #Delay100us   ;call to 100us delay
+             dec  R13           ;function body begin           
+             jnz  L2            ;function body end                          
+             ret
+;----------------------------------------------------------------------------------------------
+             ENDMOD
+             END
+
+
+ 
