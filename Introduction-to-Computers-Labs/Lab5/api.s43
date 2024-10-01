@@ -1,0 +1,114 @@
+#include "bsp.h"
+
+             MODULE API
+             PUBLIC Count2Min,timerOV,tic,toc
+             EXTERN sec0,sec1,min0,min1,CycleNum,ticVal,tocVal,delay5msec
+             EXTERN StartA1C0,stopA1C0,StopC0
+             EXTERN PrintCycle,Lcd_write,LCD_strobe
+              
+LCDcmd1      MACRO   command
+             call    #delay5msec
+             mov.b   command,&P1OUT
+             call    #LCD_strobe             
+             ENDM 
+
+             RSEG   CODE
+;-------------------------------------------------------------
+;             State 1
+;-------------------------------------------------------------
+Count2Min  cmp #2, min0       ;if [m1,2:s1,s0]
+           jge StopCount      
+           cmp #9, sec0       ;if [m1,m0:s1,9]
+           jne INCSec0
+           mov #0, sec0
+           cmp #5, sec1       ;if [m1,m0:5,s0]
+           jne INCSec1
+           mov #0, sec1
+           jmp INCMin0     
+           
+INCSec0    add  #1, sec0 
+           jmp  WriteL
+INCSec1    add  #1, sec1 
+           jmp  WriteL 
+INCMin0    add  #1, min0 
+           jmp  WriteL
+           
+StopCount  mov  #0,min0  ;when 2 min pass or PB interrupt
+           mov  #0,sec1
+           mov  #0,sec0
+           mov  #0,min1
+           call #StopC0
+           ret
+
+WriteL     push min1
+           call #Lcd_write
+           push min0
+           call #Lcd_write
+           push #10
+           call #Lcd_write
+           push sec1
+           call #Lcd_write
+           push sec0
+           call #Lcd_write
+           LCDcmd1 #0x02
+           LCDcmd1 #0x0C
+           ret
+;-------------------------------------------------------------
+;             State 2
+;-------------------------------------------------------------
+tic        call #StartA1C0
+           ret
+           
+timerOV    add #1, CycleNum ;add 1 every time TA1 in OF
+           ret
+;-------------------------------------------------------------           
+toc        call #stopA1C0
+;---if needed - converting the OF num, tikVal and tokVal to wanted result-----------
+           cmp ticVal, tocVal
+           jge tocBigger
+           mov #0xFFFF, R13
+           sub ticVal, R13
+           add tocVal, R13
+           dec CycleNum
+           jmp SpearteNum
+tocBigger  mov tocVal, R13
+           sub ticVal, R13
+;---------------algorithm for converting the result to hax and print-----------           
+SpearteNum sub CycleNum ,R13
+           
+           mov R13, R12
+           and #0xF000, R12
+           push R12
+           push #12
+           call #shifter
+           pop R12
+           mov R13, R11
+           and #0x0F00, R11
+           push R11
+           push #8
+           call #shifter
+           pop R11
+           mov R13, R10
+           and #0x00F0, R10
+           push R10
+           push #4
+           call #shifter
+           and #0x000F, R13
+           pop R10
+           call#PrintCycle
+           ret
+shifter
+           pop R8
+           pop R7
+           pop R6
+        
+l          rra R6
+           dec R7
+           jnz l
+           push R6
+           push R8
+           ret
+
+;-------------------------------------------------------------
+             ENDMOD    
+             END
