@@ -1,0 +1,211 @@
+#include "bsp.h"
+
+              MODULE HAL
+              PUBLIC SysConfig,PBs_handler,TA0_ISR,TA1X_ISR,TA1_ISR
+              PUBLIC delay5msec,delay
+              PUBLIC LCD_strobe,Lcd_clear,LCDrestart,Lcd_write,PrintCycle
+              EXTERN GPIOconfig,TIMERconfig,StartC0,StopC0,stopPB3 
+              EXTERN state,Count2Min,timerOV,CycleNum,Freq,flag 
+;--------------------------------------------------------------------
+;             MACRO FUNCTIONS FOR LCD  
+;--------------------------------------------------------------------           
+LCDcmd        MACRO   command
+              call    #delay5msec
+              mov.b   command,&P1OUT
+              call    #LCD_strobe
+              ENDM 
+              
+LCDdata       MACRO   char
+              call    #delay5msec
+              mov.b   #0x00,&P1OUT
+              bis.b   #0x40,&P2OUT  ;RS=1 Char mode
+              mov.b   char,&P1OUT
+              call    #LCD_strobe
+              bic.b   #0x40,&P2OUT  ;RS=0 
+              ENDM              
+
+              
+              RSEG   CODE
+;--------------------------------------------------------------------
+;             System Configuration  
+;--------------------------------------------------------------------
+SysConfig     call #GPIOconfig
+              call #TIMERconfig
+
+              ret
+;----------------------------------------------------------------------- 
+;            PORT2 Interrupt Service Routine
+;-----------------------------------------------------------------------
+PBs_handler  push.w #debounceVal
+             call   #delay
+             call   #StopC0        ; stops (and clears) the timer
+             bit.b  #PB0, &P2IFG   ;check if PB0 is pushed
+             jnz    PB0sel 
+             bit.b  #PB1, &P2IFG   ;check if PB1 is pushed
+             jnz    PB1sel
+             bit.b  #PB2, &P2IFG   ;check if PB2 is pushed
+             jnz    PB2sel
+             
+             reti                ; interrupt hapened from another source
+             
+PB0sel       mov    #1,state 
+             mov    #PB0,R4     ; which IntPend to clear
+             jmp    exitLPM0
+PB1sel       mov    #2,state
+             mov    #PB1,R4     ; which IntPend to clear
+             jmp    exitLPM0
+PB2sel       mov    #3,state
+             mov    #PB3,R4     ; which IntPend to clear
+             jmp    exitLPM0
+
+exitLPM0     bic    #CPUOFF,0(SP)  ; Exit LMP0
+             bic.b  R4, &P2IFG
+             reti
+;------------------------------------------------------------------------------
+TA0_ISR;    Common ISR for TA0CCR0 - every 1 sec:
+;------------------------------------------------------------------------------
+            cmp     #1,flag 
+            jne     Button2          
+Button1     call     #StartC0
+            call     #Count2Min 
+            reti
+Button2     cmp #552,R13
+            jne running 
+            call #stopPB3 
+            reti
+running      mov.w   @R13+,&TA1CCR1 ; CCR1 PWM Duty Cycle
+            reti            
+            
+;------------------------------------------------------------------------------            
+TA1_ISR;    Common ISR for TA1CCR0
+;------------------------------------------------------------------------------
+            reti
+             
+;------------------------------------------------------------------------------
+TA1X_ISR;    Common ISR for TA1CCR1-4 and overflow(TA1)
+;------------------------------------------------------------------------------
+            add.w   &TA1IV,PC                ; Add Timer_A offset vector
+            reti                            ; Vector 0 - no interrupt
+            reti                            ; Vector 1 - TACCR1
+            reti                            ; Vector 2 - TACCR1
+            nop                            
+            nop
+TA_over     call #timerOV                   ; Vector 3 - overflow
+            reti                           
+            reti                            ; Return from overflow ISR		
+                                            ;
+;----------------------------------------------------------------------------------------------
+;            Polling based Delay function
+;----------------------------------------------------------------------------------------------                     
+delay        pop   R4        ; save return address
+             pop   R5        ; get delay value
+L            dec.w   R5      ;function body begin                 
+             jnz     L       ;function body end
+             push.w  R4
+             ret
+;-------------------------------------------------------------------------------                
+delay15msec     push   #5240
+                call   #delay
+                ret
+;-------------------------------------------------------------------------------                
+delay5msec      push   #1740
+                call   #delay
+                ret
+;-------------------------------------------------------------------------------                
+delay200usec    push   #65
+                call   #delay      
+                ret
+;-------------------------------------------------------------------------------
+delay1sec       mov    #66,R14
+L1sec           call   #delay15msec
+                dec    R14
+                jnz    L1sec
+                ret
+
+
+;------------------------------------------------------------------------------
+              ;RESTART LCD
+;------------------------------------------------------------------------------
+LCDrestart     bic.b    #0xE0,&P2OUT    ;RS=0,RW=0, E=0
+               call     #delay15msec
+               mov.b    #0x3F,&P1OUT
+               call     #LCD_strobe
+               call     #delay5msec
+               mov.b    #0x3F,&P1OUT
+               call     #LCD_strobe
+               call     #delay200usec
+               mov.b    #0x3F,&P1OUT
+               call     #LCD_strobe
+               LCDcmd   #0x3C
+               LCDcmd   #0x0F
+               LCDcmd   #0x01
+               LCDcmd   #0x06
+               LCDcmd   #0x80
+               LCDcmd   #0x02
+               ret
+;------------------------------------------------------------------------------
+              ;STROBE LCD
+;------------------------------------------------------------------------------                                    
+LCD_strobe     bis.b   #0x20,&P2OUT
+               NOP
+               NOP
+               bic.b   #0x20,&P2OUT
+               ret
+;------------------------------------------------------------------------------
+              ;Print Number Of Cycle
+;------------------------------------------------------------------------------               
+PrintCycle     LCDdata #0x52  ;'R'
+               LCDdata #0x75   ;'u'
+               LCDdata #0x6E   ;'n'
+               LCDdata #20     ;'space'
+               LCDdata #0x74   ;'t'
+               LCDdata #0x69   ;'i'
+               LCDdata #0x6D   ;'m'
+               LCDdata #0x65   ;'e'
+               LCDcmd  #0xC0   ;bring cursor to the start of the second row
+               LCDdata #0x76   ;'v'
+               LCDdata #0x61   ;'a'
+               LCDdata #0x6C   ;'l'
+               LCDdata #0x75   ;'u'
+               LCDdata #0x65   ;'e'
+               LCDdata #20     ;'space'
+               push CycleNum
+               call #Lcd_write
+               push R12
+               call #Lcd_write
+               push R11
+               call #Lcd_write
+               push R10
+               call #Lcd_write
+               push R13
+               call #Lcd_write
+               ret
+;------------------------------------------------------------------------------
+              ;Convert TO ACSII And Write To The LCD 
+;------------------------------------------------------------------------------  
+Lcd_write      pop     R9
+               pop     R6
+               cmp     #10,R6
+               JGE     IsLetter
+               add     #0x0030,R6 
+               jmp     IsNum
+IsLetter       cmp     #1,state 
+               jne     s2
+               add     #0x0030,R6 
+               jmp     IsNum
+s2             add     #0x0037,R6 
+IsNum          LCDdata R6
+               push    R9
+               ret
+;------------------------------------------------------------------------------
+              ;Clear LCD 
+;------------------------------------------------------------------------------                
+Lcd_clear      LCDcmd    #0x01
+               LCDcmd    #0x02
+               ret
+
+             ENDMOD
+             END
+
+
+ 
