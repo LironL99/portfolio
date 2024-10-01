@@ -1,4 +1,4 @@
-#KNN and K-Means Implementation in Python
+# KNN and K-Means Implementation in Python
 
 ## Task Overview
 ### Task 1: K-Nearest Neighbors (KNN)
