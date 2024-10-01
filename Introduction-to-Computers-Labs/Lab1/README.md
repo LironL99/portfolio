@@ -6,10 +6,11 @@ This lab implements an assembly program to compare two arrays of identification 
 ### Task Definition:
 - Define two ID arrays, `ID1` and `ID2`, each of length 8.
 - Create a RAM array, `Different_indices_amount`, to store the count of differing indices:
-  \[
-  \forall i \in [0, 7]: \quad \text{Different_indices_amount}[i] = \text{Count of differing bits between } ID1[i] \text{ and } ID2[i]
-  \]
   
+  \[
+  \forall i \in [0, 7]: \quad \text{Different\_indices\_amount}[i] = \text{Count of differing bits between } ID1[i] \text{ and } ID2[i]
+  \]
+
 #### Example:
 For:
 ```
