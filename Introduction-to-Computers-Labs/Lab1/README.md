@@ -8,7 +8,7 @@ This lab implements an assembly program to compare two arrays of identification 
 - Create a RAM array, `Different_indices_amount`, to store the count of differing indices:
   
   \[
-  \forall i \in [0, 7]: \quad \text{Different\_indices\_amount}[i] = \text{Count of differing bits between } ID1[i] \text{ and } ID2[i]
+  ∀ 𝑖∈[0,7] Different_indices_amount[𝑖]=Different indices amount (𝐼𝐷1[𝑖] ,𝐼𝐷2[𝑖])
   \]
 
 #### Example:
@@ -41,7 +41,7 @@ This is because the binary representations differ in two bits.
 
 ### Runtime:
 - \[
-\text{runtime} = 264 \times T_{MCLK} = 264 \times 2^{-20} \approx 2.5177 \times 10^{-4} \text{ seconds}
+runtime= 264*Tmclk= 264*2^ (-20) =2.5177*10^ (-4) sec
 \]
 
 ### Files:
