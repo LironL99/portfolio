@@ -41,7 +41,7 @@ This is because the binary representations differ in two bits.
 
 ### Runtime:
 
-runtime= 264*Tmclk= 264*2^ (-20) =2.5177*10^ (-4) sec
+- runtime = 264*Tmclk= 264*2^ (-20) =2.5177*10^ (-4) sec
 
 
 ### Files:
