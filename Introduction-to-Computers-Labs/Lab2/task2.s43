@@ -1,0 +1,50 @@
+#include <msp430xG46x.h>     ;define controlled include file
+
+         ORG 1100h
+Arr1          DW    0,8,6,6,1,8,1,9  
+Arr2          DW    0,9,1,4,4,7,7,3
+ParityZeros1  DS16  8 
+ParityZeros2  DS16  8 
+Size          DW    8  
+
+         RSEG   CSTACK      
+         RSEG   CODE       
+                              
+Main     MOV    #SFE(CSTACK),SP        
+         PUSH   #ParityZeros1
+         PUSH   Size 
+         PUSH   #Arr1         
+         CALL   #ParityFunc 
+         PUSH   #ParityZeros2
+         PUSH   Size 
+         PUSH   #Arr2         
+         CALL   #ParityFunc
+         JMP    $
+         
+ParityFunc    MOV  2(SP), R5 //ID
+              MOV  4(SP), R6 //Size
+              MOV  6(SP), R7 //ArrZero
+              ADD  #1 ,R6
+              CLR  R9  
+Loop          DEC  R6   
+              JZ   Finish   
+              MOV  @R5+,R8
+SumOnes       RRA  R8
+              ADC  R9
+              CMP  #0 ,R8
+              JZ   ArrAdd 
+              JMP  SumOnes
+ArrAdd        INV  R9
+              ADD  #1, R9
+              ADD  #16, R9
+              MOV  R9,0(R7)
+              CLR  R9
+              ADD  #2, R7
+              JMP  Loop
+Finish        RET  
+;-------------------------------------------------------------------------------
+         COMMON  INTVEC                  ; Interrupt Vectors
+;-------------------------------------------------------------------------------
+         ORG     RESET_VECTOR            ; POR, ext. Reset
+         DW      Main
+         END
