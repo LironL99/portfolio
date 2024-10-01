@@ -1,7 +1,7 @@
-# Task 1: Basic Simulations and Inverter Construction
+# Task 1: Basic Simulations and Inverter and Buffer Construction
 
 ### Task Overview
-This task involves performing basic simulations, familiarizing with tools, and constructing an inverter.
+This task involves performing basic simulations, familiarizing with tools, constructing an inverter, and later a Buffer.
 
 ### Part A: Understanding Devices
 - Devices with minimum length and width were used.
@@ -19,5 +19,3 @@ This task involves performing basic simulations, familiarizing with tools, and c
 - Two schematics for the buffer were designed: one implemented with transistors and the other using the inverters created earlier.
 - Symbols for both cells were created, and simulation results were displayed.
 
-### Collaboration
-Collaboration with a partner throughout this task enhanced the understanding of VLSI design and simulation.
