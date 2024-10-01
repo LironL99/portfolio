@@ -1,0 +1,65 @@
+#include  "bsp.h"
+
+             MODULE API
+             PUBLIC PWM,PWM2,DecLEDRTL,SingleLEDRTL
+             EXTERN delay,DecLED,RTLLED,Invert,Delay05sec
+            
+             RSEG   CODE
+;-------------------------------------------------------------           
+DecLEDRTL    dec     R10
+             jz      Finish
+             call    #DecLED      ;single LED decrease      
+             call    #Delay05sec  
+             jmp     DecLEDRTL         
+;-------------------------------------------------------------               
+SingleLEDRTL dec     R10
+             jz      Finish
+             call    #RTLLED      ;single LED change RTL    
+             call    #Delay05sec
+             jmp     SingleLEDRTL
+
+;-------------------------------------------------------------
+;            PMW of 2.5Khz DC=75%
+;-------------------------------------------------------------
+PWM         mov.b #0,PWMPort
+PWMLoop     call #Invert    ;5+7 invert LEDs
+            push #101       ;4
+            call #delay     ;5+301 delay T DC        
+            call #Invert    ;5+7 ;invert LEDs
+            push #25        ;4
+            call #delay     ;5+99 delay T DC complement
+            nop             ;1
+            jmp PWMLoop     ;2
+;-------------------------------------------------------------
+;            PMW of 2.0Khz DC=50%
+;-------------------------------------------------------------
+PWM2        mov.b #0,PWMPort
+            clr   R5        ;!
+            mov   #2000,R5  ;one second
+            clr   R7        ; clear the counter of total second
+            clr   R12       ;!
+            pop   R4        ;pop the SR
+            pop   R12       ;Pop the argument(how many seconds)
+            push  R4        ;push the SR
+PWMBipLoop2 add   R5,R7     ;counter of how many seconds
+            dec   R12
+            jnz   PWMBipLoop2
+            
+PWMLoop2    call  #Invert    ;5+7 invert LEDs
+            push  #77        ;4
+            call  #delay     ;5+241 delay T DC
+            nop              ;1
+            nop              ;1
+            
+            call  #Invert    ;5+7 ;invert LEDs
+            push  #76        ;4
+            call  #delay     ;5+238 delay T DC complement
+            nop              ;1
+            dec   R7         ;2
+            jnz   PWMLoop2   ;2
+Finish      ret
+  
+   
+
+            ENDMOD    
+            END
