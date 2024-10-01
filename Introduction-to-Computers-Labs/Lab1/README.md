@@ -1,4 +1,4 @@
-# introduction-to-computers-labs
+# Lab 1: Introduction to IAR IDE, Debugging, and Assembly Language
 Overview:
 In this lab, we used the IAR Embedded Workbench to write, debug, and run an Assembly program. The task involved comparing two arrays (ID1 and ID2) and calculating the number of differing indices, storing the result in memory.
 
