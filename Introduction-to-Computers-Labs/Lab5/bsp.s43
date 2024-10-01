@@ -1,0 +1,103 @@
+#include "bsp.h"
+
+            MODULE BSP
+            PUBLIC GPIOconfig,TIMERconfig,StartC0,StopC0,StartA1C0,stopA1C0,StartPB3,stopPB3 
+            EXTERN main,PBs_handler,TA1X_ISR,TA1_ISR,TA0_ISR
+            EXTERN LCDrestart,Lcd_clear
+            EXTERN ticVal,tocVal,sec0,sec1,min0,Freq
+            
+            RSEG   CODE                    
+;-----------------------------------------------------------------------------  
+;           GPIO congiguration
+;-----------------------------------------------------------------------------
+GPIOconfig 
+             mov.w   #WDTPW+WDTHOLD,&WDTCTL   ; hold watchdog timer
+            ; PushButtons Setup
+             bic.b   #0x0B,&P2SEL 
+             bic.b   #0x0B,&P2DIR
+
+             bis.b   #0x03,&P2IES ; pull-up
+             bic.b   #0x08,&P2IES ; pull-down
+             bis.b   #0x0B,&P2IE
+             bic.b   #0x0F,&P2IFG    ; clear pending interrupts
+             
+             ; LCD Setup
+             bic.b   #0xFF,&P1SEL ; GPIO capability
+             bis.b   #0xFF,&P1DIR ; output dir
+             bic.b   #0xE0,&P2SEL 
+             bis.b   #0xE0,&P2DIR
+             call    #LCDrestart              
+             ret
+;------------------------------------------------------------------------------------- 
+;            Timers congiguration 
+;-------------------------------------------------------------------------------------
+TIMERconfig
+SetupP2       bis.b   #0x04,&P2SEL
+              bis.b   #0x04,&P2DIR
+              
+              
+SetupTA0      mov.w   #TASSEL_2+MC_0+ID_3+TACLR ,&TA0CTL   ; TA0 - SMCLK/8, Stop mode, Clear
+              mov.w   #0xFFFF,&TACCR0                      ; TA0CCR0 val for compare mode  
+              mov.w   #CCIE,&TACCTL0                       ; enable interrupt in TA0CC0
+              
+SetupTA1      mov.w   #TASSEL_2+MC_0+TAIE,&TA1CTL          ; TA1 - SMCLK, Stop mode, enable TA1 interrupt
+              mov.w   #CAP+CM_3+SCS+CCIE+CCIS_3 ,&TA1CCTL0 ; TA1C0 - Captuer mode (rising and falling edge), Sync, enable CC interrupt, Vcc
+              ret
+;------------------------------------------------------------------------------- 
+StartC0       mov.w   #TASSEL_2+MC_3+ID_3 ,&TACTL     ; TA0 - Up/Down mode (start timer)
+              mov.w   #0xFFFF,&TACCR0                      ; TA0CCR0 val for compare mode  
+              ret
+;-------------------------------------------------------------------------------               
+StopC0        mov.w   #TASSEL_2+MC_0+ID_3+TACLR ,&TACTL    ; TA0 - SMCLK/8, Stop mode, Clear
+              mov     #0, min0
+              mov     #-1, sec0
+              mov     #0, sec1
+              call    #Lcd_clear
+              ret 
+;-------------------------------------------------------------------------------               
+StartA1C0     mov.w   #TASSEL_2+MC_0+ID_3+TACLR ,&TACTL    ; TA0 - SMCLK/8, Stop mode, Clear
+              bis.w   #MC_2 ,&TA1CTL                       ; TA1 - Up mode (start timer)
+              mov.w   #CAP+CM_3+SCS+CCIE+CCIS_2 ,&TA1CCTL0 ; TA1C0 - Captuer mode (rising and falling edge), Sync, enable CC interrupt, Gnd
+              mov     &TA1CCR0,ticVal
+              ret
+;-------------------------------------------------------------------------------              
+stopA1C0      bis.w   #CCIS_3 ,&TA1CCTL0                   ; TA1C0 - Vcc
+              bic.w   #MC_0+TAIE ,&TA1CTL                  ; TA1 - Stop mode, enable TA1 interrupt
+              mov     &TA1CCR0, tocVal 
+              ret
+;-------------------------------------------------------------------------------               
+StartPB3      mov.w   #TASSEL_2+MC_3+ID_3+TACLR ,&TA0CTL    ; TA0 - SMCLK/8, up/down mode, Clear
+              mov.w   #0xCCCC,&TA0CCR0                      ; TA0CCR0 val for compare mode  
+              mov.w   #TASSEL_2+MC_1 ,&TA1CTL              ; TA1 - Up mode (start timer)
+              mov.w   #552,&TA1CCR0 ; PWM Period
+              mov.w   #OUTMOD_7,&TA1CCTL1 ; CCR1 reset/set
+              ret
+;-------------------------------------------------------------------------------              
+stopPB3       mov.w   #TASSEL_2+MC_0+ID_3+TACLR ,&TACTL    ; TA0 - SMCLK/8, Stop mode, Clear
+              bic.w   #MC_0+TAIE+TACLR ,&TA1CTL            ; TA1 - Stop mode, enable TA1 interrupt
+              ret
+                         
+;-------------------------------------------------------------------------------    
+;---------------------------------------------------------------------------------------                  
+             COMMON  INTVEC   ; Interrupt Vectors-Begins a common segment name of INTVEC 
+;--------------------------------------------------------------------------------------
+             ORG     PORT2_VECTOR         ;PORT2 Interrupt Vector
+             DW      PBs_handler          ; interrupt handler = ISR
+;---------------------------------------------------------------------------------------
+             ORG     RESET_VECTOR         ; MSP430 RESET Vector
+             DW      main
+;---------------------------------------------------------------------------------------             
+             ORG     TIMER0_A0_VECTOR     ; TA0C0 Interrupt Vector
+             DW      TA0_ISR              ; interrupt handler = ISR
+;---------------------------------------------------------------------------------------             
+             ORG     TIMER1_A0_VECTOR     ; TA1C0 Interrupt Vector
+             DW      TA1_ISR              ; interrupt handler = ISR
+;---------------------------------------------------------------------------------------             
+             ORG     TIMER1_A1_VECTOR     ; TA1 *and* TA1C1 Interrupt Vector
+             DW      TA1X_ISR              ;interrupt handler = ISR
+             
+             
+             
+
+             ENDMOD
+             END
