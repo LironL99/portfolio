@@ -13,22 +13,23 @@ This lab implements an assembly program to calculate the number of zero bits in 
   ```
 
 - Implement the following function:
-  
-  \[
-  \text{ParityZerosFunc}(int ID[], int size, int ParityZero[])
-  \]
+
+\[
+\text{ParityZerosFunc}(int ID[], int size, int ParityZero[])
+\]
 
 - The function calculates the count of zero bits for each ID element:
 
-  \[
-  \forall i \in [0, 7]: \quad \text{ParityZeros}[i] = \text{Number of zeros in } ID[i]
-  \]
+\[
+\forall i \in [0, 7]: \quad \text{ParityZeros}[i] = \text{Number of zeros in } ID[i]
+\]
 
 - Call the function twice in the main program:
-  ```
-  ParityZerosFunc(ID1, IDsize, ParityZeros1);
-  ParityZerosFunc(ID2, IDsize, ParityZeros2);
-  ```
+
+```
+ParityZerosFunc(ID1, IDsize, ParityZeros1);
+ParityZerosFunc(ID2, IDsize, ParityZeros2);
+```
 
 ### Implementation Details:
 - **Main**: Loaded data into the stack (result array pointer, array size, and ID array pointer) and called the function twice, once for each ID.
@@ -47,9 +48,7 @@ This lab implements an assembly program to calculate the number of zero bits in 
 - Size = \(0x2158 - 0x2100 = 0x0058 = 88\) (decimal)
 
 ### Runtime:
-- \[
-\text{runtime} = 575 \times T_{MCLK} = 575 \times 2^{-20} \approx 5.4836 \times 10^{-4} \text{ seconds}
-\]
+- \(\text{runtime} = 575 \times T_{MCLK} = 575 \times 2^{-20} \approx 5.4836 \times 10^{-4} \text{ seconds}\)
 
 ### Files:
 - `task2.s43`: Source code implementing the parity zeros calculation.
