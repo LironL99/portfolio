@@ -4,7 +4,7 @@
 This task involves performing basic simulations, familiarizing with tools, and constructing an inverter.
 
 ### Part A: Understanding Devices
-- Devices with minimum length and width were used, calculated using the formula: \( W = (10G \times (420)) \, \text{nm} \).
+- Devices with minimum length and width were used.
 - IV curves for basic devices were generated using the PDK.
 - A schematic with NMOS and PMOS transistors was created, with voltage sources connected to gates and drains.
 - A DC Sweep simulation was run on V_DS and V_GS, documenting I_DS for both types of transistors.
