@@ -10,7 +10,7 @@
 In this course, I gained an in-depth understanding of the architecture and operation of digital computers. I explored fundamental concepts such as computer organization, machine language, control units, arithmetic units, memory units, and input/output systems.
 
 ### Learning Methodology:
-The course consisted of lectures, tutorials, and practical lab sessions. Through hands-on experience in six laboratory experiments, I was able to apply the theoretical knowledge acquired in lectures.
+The course consisted of lectures, tutorials, and practical lab sessions. Through hands-on experience in six laboratory experiments, using Assembly language, I was able to apply the theoretical knowledge acquired in lectures.
 
 ### Laboratory Experiments:
 The labs were designed to provide practical experience with various aspects of computer systems, including assembly language programming, GPIO operations, interrupts, real-time applications, and analog-to-digital conversions. The experiments I completed with my partner are as follows:
