@@ -30,7 +30,7 @@ This machine learning project demonstrates implementations of two essential algo
 - [View Project](https://github.com/LironL99/portfolio/tree/main/KNN-and-K-Means-Implementation-Python)
 
 ## About Me
-I am an Electrical and Computer Engineering student at BGU, with a specialization in VLSI design and computer systems. My experience spans a wide range of topics, from digital design using HDL to systems programming and machine learning.
+I am an Electrical and Computer Engineering student at BGU, with a specialization in VLSI design and computer systems. I am passionate about learning enjoy discovering new concepts through self study.
 
 ### Contact Information
 - LinkedIn: [Liron Leibovich](https://www.linkedin.com/in/liron-leibovich1)
