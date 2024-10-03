@@ -1,7 +1,44 @@
 # 4-bit ALU Project
 
 ## Description
-This module implements a 4-bit ALU that performs various arithmetic and logical operations.
+
+This module implements a 4-bit Arithmetic Logic Unit (ALU) capable of performing a variety of arithmetic and logical operations on two 4-bit input operands. The ALU is designed to support the following operations:
+
+1. **Arithmetic Operations**:
+   - **Addition**: Computes the sum of two operands, with overflow detection.
+   - **Subtraction**: Calculates the difference between two operands, also including overflow detection.
+   - **Increment**: Increments the first operand by one.
+   - **Decrement**: Decrements the first operand by one.
+   - **Less Than**: Evaluates if the first operand is less than the second, returning a boolean result.
+   - **Equal**: Checks for equality between the two operands, returning a boolean result.
+   - **Greater Than**: Determines if the first operand is greater than the second, returning a boolean result.
+
+2. **Logical Operations**:
+   - **AND**: Performs a bitwise AND operation on the two operands.
+   - **OR**: Executes a bitwise OR operation.
+   - **XOR**: Computes a bitwise exclusive OR operation.
+   - **NAND**: Calculates the bitwise NAND of the two operands.
+   - **NOR**: Computes the bitwise NOR operation.
+   - **Bitwise NOT**: Inverts all bits of the first operand.
+
+3. **Bit Shifting Operations**:
+   - **Logical Shift Left**: Shifts the bits of the first operand to the left, filling the vacated bit positions with zeros.
+   - **Logical Shift Right**: Shifts the bits of the first operand to the right, filling the vacated bit positions with zeros.
+   - **Arithmetic Shift Right**: Shifts the bits of the first operand to the right, preserving the sign bit.
+
+### Design Overview
+
+The ALU operates based on a control signal that dictates which operation to perform. It utilizes a combinational logic design that enables real-time computation based on the input values. The design is modular, allowing for easy expansion and integration into larger systems, such as microcontrollers or FPGA-based designs.
+
+### Applications
+
+This 4-bit ALU can serve as a foundational component in various digital systems, including:
+- Microprocessors for simple computing tasks.
+- FPGA projects for educational purposes or proof-of-concept designs.
+- Digital signal processing applications where basic arithmetic and logic operations are required.
+
+Overall, this ALU module is a versatile building block for both educational and practical applications in digital design.
+
 
 - **Control Signals**: 
   The ALU operation is controlled using a 4-bit control signal, allowing for easy selection of operations.
@@ -16,18 +53,6 @@ This module implements a 4-bit ALU that performs various arithmetic and logical 
 ## Usage
 To simulate the ALU, run the `alu_tb.v` testbench in ModelSim.
 
-## Author
-Liron Leibovich  
-Date: 03/10/2024
-
-
-
-## Example Outputs
-| Input A | Input B | Control | Result | Overflow |
-|---------|---------|---------|--------|----------|
-| 0001   | 0010   | 000     | 0011   | 0        |
-| 0011   | 0001   | 001     | 0010   | 0        |
-| 0001   | 0011   | 101     | 1100   | 0        |
 
 ## Control Signal Table
 | Control Signal (ctrl) | Operation          | Description                                   |
@@ -48,3 +73,14 @@ Date: 03/10/2024
 | 3'b1101               | Greater Than       | A > B (1 if true, 0 if false)               |
 | 3'b1110               | Increment          | A + 1                                        |
 | 3'b1111               | Decrement          | A - 1                                        |
+
+## Example Outputs
+| Input A | Input B | Control | Result | Overflow |
+|---------|---------|---------|--------|----------|
+| 0001   | 0010   | 000     | 0011   | 0        |
+| 0011   | 0001   | 001     | 0010   | 0        |
+| 0001   | 0011   | 101     | 1100   | 0        |
+
+## Author
+Liron Leibovich  
+Date: 03/10/2024
