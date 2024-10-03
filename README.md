@@ -8,8 +8,8 @@ Welcome to my portfolio! I'm a student of Electrical and Computer Engineering, f
 This project implements a 4-bit Arithmetic Logic Unit (ALU) using Verilog language. The ALU can perform basic operations like addition, subtraction, and logical operations, serving as a foundational digital design component.
 - [View Project](https://github.com/LironL99/portfolio/tree/main/4-bit-ALU)
 
-### 2. Integrated Circuits and Introduction to VLSI
-This project includes multiple tasks focused on VLSI design using tools like Cadence Virtuoso. It covers topics from MOSFET-level design to digital circuit implementation, emphasizing hands-on experience with integrated circuit design.
+### 2. Integrated Circuits and Introduction to VLSI Tasks
+This project includes multiple tasks focused on VLSI design using Cadence Virtuoso. It covers topics from MOSFET-level design to digital circuit implementation, emphasizing hands-on experience with integrated circuit design.
 - [View Project](https://github.com/LironL99/portfolio/tree/main/Integrated-Circuits-and-Introduction-to-VLSI-Tasks)
 
 ### 3. Systems Programming Tasks in C++
