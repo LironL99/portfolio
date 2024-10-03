@@ -3,8 +3,24 @@
 ## Description
 This module implements a 4-bit ALU that performs various arithmetic and logical operations.
 
+- **Control Signals**: 
+  The ALU operation is controlled using a 4-bit control signal, allowing for easy selection of operations.
+
+- **Testbench**: 
+  A comprehensive testbench has been developed to validate the functionality of the ALU, covering normal cases and edge cases. The testbench provides detailed output for each operation, aiding in debugging and verification.
+
+## Implementation
+- Written in Verilog, the ALU and testbench are structured to facilitate easy modification and testing. 
+- The project demonstrates fundamental digital design principles and Verilog coding practices.
+
 ## Usage
 To simulate the ALU, run the `alu_tb.v` testbench in ModelSim.
+
+## Author
+Liron Leibovich  
+Date: 03/10/2024
+
+
 
 ## Example Outputs
 | Input A | Input B | Control | Result | Overflow |
