@@ -50,7 +50,7 @@ A comprehensive testbench has been developed to validate the functionality of th
 - The project demonstrates fundamental digital design principles and Verilog coding practices.
 
 ## Usage
-To simulate the ALU, run the `alu_tb.v` testbench in ModelSim. Ensure that the simulation environment is properly set up and the necessary libraries are loaded.
+To simulate the ALU, run the `alu_4bit_tb.v` testbench in ModelSim. Ensure that the simulation environment is properly set up and the necessary libraries are loaded.
 
 ## Control Signal Table
 | Control Signal (ctrl) | Operation          | Description                                   |
