@@ -103,6 +103,7 @@ Comparison of Max Values: A: 1111, B: 1110, ctrl: 110, result: 0000, zero: 1, ov
 Time: 250 ns  Iteration: 0  Instance: /alu_4bit_tb
 
 
+
 ## Author
 Liron Leibovich  
 Date: 03/10/2024
