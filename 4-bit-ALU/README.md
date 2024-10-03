@@ -82,6 +82,26 @@ To simulate the ALU, run the `alu_4bit_tb.v` testbench in ModelSim. Ensure that 
 | 0110   | 0010   | 1000   | 1100   | 0        |  // Logical Shift Left
 | 0100   | 0001   | 1010   | 0000   | 0        |  // Arithmetic Shift Right
 
+## Simulation Output
+
+Here is the output from the simulation:
+# Addition: A: 0011, B: 0010, ctrl: 000, result: 0101, zero: 0, overflow: 0
+# Subtraction: A: 0100, B: 0010, ctrl: 001, result: 0010, zero: 0, overflow: 0
+# AND: A: 1100, B: 1010, ctrl: 010, result: 1000, zero: 0, overflow: 0
+# OR: A: 1100, B: 1010, ctrl: 011, result: 1110, zero: 0, overflow: 0
+# XOR: A: 1100, B: 1010, ctrl: 100, result: 0110, zero: 0, overflow: 0
+# NOT: A: 1100, ctrl: 101, result: 0111, zero: 0, overflow: 0
+# Less Than Comparison: A: 0101, B: 1001, ctrl: 110, result: 0010, zero: 0, overflow: 0
+# Greater Than Comparison: A: 1001, B: 0101, ctrl: 111, result: 0110, zero: 0, overflow: 0
+# All Zero Inputs: A: 0000, B: 0000, ctrl: 000, result: 0000, zero: 1, overflow: 0
+# Zero Inputs Subtraction: A: 0000, B: 0000, ctrl: 001, result: 0000, zero: 1, overflow: 0
+# Maximum Minus Minimum: A: 1111, B: 0000, ctrl: 001, result: 1111, zero: 0, overflow: 0
+# Shift Left Max Value: A: 1111, ctrl: 000, result: 1111, zero: 0, overflow: 0
+# Shift Right Zero Value: A: 0000, ctrl: 001, result: 0000, zero: 1, overflow: 0
+# Comparison of Equal Values: A: 1000, B: 1000, ctrl: 110, result: 0111, zero: 0, overflow: 0
+# Comparison of Max Values: A: 1111, B: 1110, ctrl: 110, result: 0000, zero: 1, overflow: 0
+#    Time: 250 ns  Iteration: 0  Instance: /alu_4bit_tb
+
 ## Author
 Liron Leibovich  
 Date: 03/10/2024
