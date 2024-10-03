@@ -100,7 +100,8 @@ Shift Left Max Value: A: 1111, ctrl: 000, result: 1111, zero: 0, overflow: 0
 Shift Right Zero Value: A: 0000, ctrl: 001, result: 0000, zero: 1, overflow: 0
 Comparison of Equal Values: A: 1000, B: 1000, ctrl: 110, result: 0111, zero: 0, overflow: 0
 Comparison of Max Values: A: 1111, B: 1110, ctrl: 110, result: 0000, zero: 1, overflow: 0
-   Time: 250 ns  Iteration: 0  Instance: /alu_4bit_tb
+Time: 250 ns  Iteration: 0  Instance: /alu_4bit_tb
+
 
 ## Author
 Liron Leibovich  
