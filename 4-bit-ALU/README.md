@@ -39,20 +39,18 @@ This 4-bit ALU can serve as a foundational component in various digital systems,
 
 Overall, this ALU module is a versatile building block for both educational and practical applications in digital design.
 
+### Control Signals
+The ALU operation is controlled using a 4-bit control signal, allowing for easy selection of operations.
 
- **Control Signals**: 
-  The ALU operation is controlled using a 4-bit control signal, allowing for easy selection of operations.
-
- **Testbench**: 
-  A comprehensive testbench has been developed to validate the functionality of the ALU, covering normal cases and edge cases. The testbench provides detailed output for each operation, aiding in debugging and verification.
+### Testbench
+A comprehensive testbench has been developed to validate the functionality of the ALU, covering normal cases and edge cases. The testbench provides detailed output for each operation, aiding in debugging and verification.
 
 ## Implementation
 - Written in Verilog, the ALU and testbench are structured to facilitate easy modification and testing. 
 - The project demonstrates fundamental digital design principles and Verilog coding practices.
 
 ## Usage
-To simulate the ALU, run the `alu_tb.v` testbench in ModelSim.
-
+To simulate the ALU, run the `alu_tb.v` testbench in ModelSim. Ensure that the simulation environment is properly set up and the necessary libraries are loaded.
 
 ## Control Signal Table
 | Control Signal (ctrl) | Operation          | Description                                   |
@@ -80,6 +78,9 @@ To simulate the ALU, run the `alu_tb.v` testbench in ModelSim.
 | 0001   | 0010   | 000     | 0011   | 0        |
 | 0011   | 0001   | 001     | 0010   | 0        |
 | 0001   | 0011   | 101     | 1100   | 0        |
+| 1111   | 0001   | 000     | 0000   | 1        |  // Overflow example
+| 0110   | 0010   | 1000   | 1100   | 0        |  // Logical Shift Left
+| 0100   | 0001   | 1010   | 0000   | 0        |  // Arithmetic Shift Right
 
 ## Author
 Liron Leibovich  
