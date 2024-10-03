@@ -40,10 +40,10 @@ This 4-bit ALU can serve as a foundational component in various digital systems,
 Overall, this ALU module is a versatile building block for both educational and practical applications in digital design.
 
 
-- **Control Signals**: 
+ **Control Signals**: 
   The ALU operation is controlled using a 4-bit control signal, allowing for easy selection of operations.
 
-- **Testbench**: 
+ **Testbench**: 
   A comprehensive testbench has been developed to validate the functionality of the ALU, covering normal cases and edge cases. The testbench provides detailed output for each operation, aiding in debugging and verification.
 
 ## Implementation
