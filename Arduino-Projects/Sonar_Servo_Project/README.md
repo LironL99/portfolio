@@ -104,3 +104,7 @@ This project demonstrates the integration of an ultrasonic sensor, servo motor, 
 
 ## Project Functionality GIF
 ![Project Functionality GIF](path_to_your_gif.gif)  <!-- Replace with the actual path to your GIF -->
+
+## Code Paths
+- **Arduino Code**: [Path to Arduino Code](path_to_your_arduino_code.ino) <!-- Replace with the actual path to your Arduino code -->
+- **Processing Code**: [Path to Processing Code](path_to_your_processing_code.pde) <!-- Replace with the actual path to your Processing code -->
