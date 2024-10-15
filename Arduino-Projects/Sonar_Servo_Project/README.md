@@ -81,7 +81,7 @@ This project successfully integrates the components to perform the following tas
 - Provide visual feedback through red LEDs that indicate how close an object is to the sensor, enhancing the interactivity of the project.
 
 ## Project Functionality
-![Project Functionality GIF](path_to_your_gif.gif)  <!-- Replace with the actual path to your GIF -->
+![Project Functionality GIF](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality.mp4)  <!-- Replace with the actual path to your GIF -->
 
 ## Future Improvements
 Future iterations of this project could include:
