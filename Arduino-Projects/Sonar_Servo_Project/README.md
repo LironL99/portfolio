@@ -27,6 +27,7 @@ This project aims to create a distance measurement system using an ultrasonic se
 
 - **Servo Motor (SG90)**: A small servo motor that rotates between specified angles to scan the environment. It requires a PWM-capable digital pin for precise control of its position.
 <img src="Media_files/Sonar_and_Servo.jpg" alt="Sonar_and_Servo" width="300"/>
+
 - **Potentiometer (B10K)**: A variable resistor with a total resistance of 10k ohms, allowing users to adjust the scanning speed of the servo motor. It is connected to an analog pin for reading the resistance value, which helps in mapping the servo's delay time.
 ![Potentiometer](/Arduino-Projects/Sonar_Servo_Project/Media_files/Potentiometer.jpg) 
 - **Red LEDs**: Three red LEDs provide visual feedback about the distance to an object. They are connected to digital pins for control. **Each LED is connected with a 220-ohm resistor to limit the current and prevent damage.**
