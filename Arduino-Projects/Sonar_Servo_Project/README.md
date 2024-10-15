@@ -1,5 +1,5 @@
 # Ultrasonic Sensor Servo Control Project
-<img src="Arduino-Projects/Sonar_Servo_Project/Media_files/Project.jpg" alt="Project" width="300"/>
+<img src="Arduino-Projects/Sonar_Servo_Project/Media_files/Project.jpg" alt="Sonar Servo Project" width="300"/>
 
 
 ## Table of Contents
