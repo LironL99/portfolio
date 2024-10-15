@@ -1,5 +1,7 @@
 # Ultrasonic Sensor Servo Control Project
-
+## Project Functionality
+![Project Functionality](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality_GIF.gif) 
+- [**Full Demonstration (HQ)**](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality.mp4)
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Components Used](#components-used)
