@@ -73,7 +73,7 @@ This logic provides immediate visual feedback about the proximity of objects det
 
 ### 6. Processing Display
 The Processing sketch provides a radar-like visualization of the distance readings. It displays the current distance as a circular indicator, updating in real time as the servo scans the environment. This visualization enhances the user experience and provides an engaging way to interpret the sensor data.
-- **Processing Code**: [Path to Processing Code](/Arduino-Projects/Sonar_Servo_Project/Processing_code.pde)
+- [**Processing Code**](/Arduino-Projects/Sonar_Servo_Project/Processing_code.pde)
 ## Integration of Components
 The project successfully integrates the components to perform the following tasks:
 - Measure distance using the HC-SR04 sensor and adjust the position of the SG90 servo motor based on that measurement.
