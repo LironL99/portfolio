@@ -1,5 +1,6 @@
 # Ultrasonic Sensor Servo Control Project
-![Project Functionality](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality_GIF.gif) 
+![Project](/Arduino-Projects/Sonar_Servo_Project/Media_files/Project.jpg) 
+
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Components Used](#components-used)
@@ -23,15 +24,15 @@ This project aims to create a distance measurement system using an ultrasonic se
 - **Ultrasonic Sensor (HC-SR04)**: Used for measuring distance. It sends ultrasonic pulses and calculates the time it takes for them to return, converting this time into distance. This component requires two digital pins for triggering and receiving signals.
 
 - **Servo Motor (SG90)**: A small servo motor that rotates between specified angles to scan the environment. It requires a PWM-capable digital pin for precise control of its position.
-
+![Sonar_and_Servo](/Arduino-Projects/Sonar_Servo_Project/Media_files/Sonar_and_Servo.jpg) 
 - **Potentiometer (B10K)**: A variable resistor with a total resistance of 10k ohms, allowing users to adjust the scanning speed of the servo motor. It is connected to an analog pin for reading the resistance value, which helps in mapping the servo's delay time.
-
+![Potentiometer](/Arduino-Projects/Sonar_Servo_Project/Media_files/Potentiometer.jpg) 
 - **Red LEDs**: Three red LEDs provide visual feedback about the distance to an object. They are connected to digital pins for control. **Each LED is connected with a 220-ohm resistor to limit the current and prevent damage.**
-
+![LEDs](/Arduino-Projects/Sonar_Servo_Project/Media_files/LEDs.jpg) 
 - **Processing Environment**: Used to create a radar-like visual display that represents the measured distance in real time. The Processing sketch connects to the Arduino via serial communication to receive distance data and update the display accordingly.
 
 ## Wiring Diagram
-![Wiring Diagram](/Arduino-Projects/Sonar_Servo_Project/Wiring-Diagram.png)
+![Wiring Diagram](/Arduino-Projects/Sonar_Servo_Project/Media_files/Wiring-Diagram.png)
 
 ## Code Explanation
 The provided code utilizes various components to create a distance measurement and feedback system using an ultrasonic sensor, servo motor, potentiometer, LEDs, and a Processing display. Below is a breakdown of how these components work together.
@@ -80,6 +81,7 @@ This project successfully integrates the components to perform the following tas
 
 ## Project Functionality
 The project is interactive and dynamic, allowing users to manipulate objects in the environment and observe real-time changes in both the LED indicators and the radar-like display.
+![Project Functionality](/Arduino-Projects/Sonar_Servo_Project/Media_files/Project_Functionality_GIF.gif) 
 - [**Full Demonstration (HQ)**](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality.mp4)
 
 ## Future Improvements
