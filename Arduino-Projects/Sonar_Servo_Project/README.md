@@ -92,7 +92,7 @@ Future iterations of this project could include:
 - Improving the Processing visualization with additional features, such as graphs or data logging.
 
 ## Conclusion
-This project demonstrates the integration of an ultrasonic sensor, servo motor, potentiometer, LEDs, and a radar-like Processing display to create an interactive distance measurement system. Throughout the process, I improved my techniques in wiring, using a breadboard, integrating components, debugging, and interfacing with a microcontroller. The experience gained from tackling the challenges and implementing the components will serve as a solid foundation for future projects, particularly in the VLSI field. This project is designed to showcase practical skills and knowledge to potential recruiters and during job interviews.
+This project demonstrates the integration of an ultrasonic sensor, servo motor, potentiometer, LEDs, and a radar-like Processing display to create an interactive distance measurement system. Throughout the process, I improved my techniques in wiring, using a breadboard, integrating components, debugging, and interfacing with a microcontroller. The experience gained from tackling the challenges and implementing the components will serve as a solid foundation for future projects, particularly in the VLSI field.
 
 ## References
 - Arduino documentation for the Servo library.
