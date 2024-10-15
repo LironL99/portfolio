@@ -38,7 +38,7 @@ This project aims to create a distance measurement system using an ultrasonic se
 
 ## Code Explanation
 The provided code utilizes various components to create a distance measurement and feedback system using an ultrasonic sensor, servo motor, potentiometer, LEDs, and a Processing display. Below is a breakdown of how these components work together.
--[ **Arduino Code**](/Arduino-Projects/Sonar_Servo_Project/IDE_code.ino)
+[ **Arduino Code**](/Arduino-Projects/Sonar_Servo_Project/IDE_code.ino)
  
 ### 1. Component Initialization
 - **Servo Motor (SG90)**: Controlled via a PWM-capable digital pin (pin 9) to adjust the angle based on distance measurements.
