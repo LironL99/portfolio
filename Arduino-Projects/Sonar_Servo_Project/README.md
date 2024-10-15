@@ -9,7 +9,6 @@
 6. [Project Functionality](#project-functionality)
 7. [Future Improvements](#future-improvements)
 8. [Conclusion](#conclusion)
-9. [References](#references)
 
 ## Project Overview
 This project aims to create a distance measurement system using an ultrasonic sensor and a servo motor, providing visual feedback through red LEDs based on the measured distance. Additionally, it features a radar-like display using Processing, which visually represents the distance readings in real time. The system allows users to adjust the scanning speed via a potentiometer. This was my first independent project (besides digital circuits labs), where I enhanced my skills in wiring, using a breadboard, integrating components, debugging, and interfacing with a microcontroller. I also gained experience in programming within the Arduino IDE environment using C++.
@@ -93,9 +92,3 @@ Future iterations of this project could include:
 
 ## Conclusion
 This project demonstrates the integration of an ultrasonic sensor, servo motor, potentiometer, LEDs, and a radar-like Processing display to create an interactive distance measurement system. Throughout the process, I improved my techniques in wiring, using a breadboard, integrating components, debugging, and interfacing with a microcontroller. The experience gained from tackling the challenges and implementing the components will serve as a solid foundation for future projects, particularly in the VLSI field.
-
-## References
-- Arduino documentation for the Servo library.
-- Datasheets for HC-SR04 ultrasonic sensor and SG90 servo motor.
-- Online tutorials on integrating sensors and motors with Arduino.
-- Processing documentation for creating visual displays.
