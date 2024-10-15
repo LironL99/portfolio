@@ -38,7 +38,8 @@ This project aims to create a distance measurement system using an ultrasonic se
 
 ## Code Explanation
 The provided code utilizes various components to create a distance measurement and feedback system using an ultrasonic sensor, servo motor, potentiometer, LEDs, and a Processing display. Below is a breakdown of how these components work together.
-
+- **Arduino Code**: [Path to Arduino Code](path_to_your_arduino_code.ino) <!-- Replace with the actual path to your Arduino code -->
+- 
 ### 1. Component Initialization
 - **Servo Motor (SG90)**: Controlled via a PWM-capable digital pin (pin 9) to adjust the angle based on distance measurements.
 - **Ultrasonic Sensor (HC-SR04)**: Connected to pins 7 and 8 (trigPin and echoPin) to measure distance. The trigger pin sends a pulse, and the echo pin receives the reflected signal.
@@ -72,13 +73,16 @@ This logic provides immediate visual feedback about the proximity of objects det
 
 ### 6. Processing Display
 The Processing sketch provides a radar-like visualization of the distance readings. It displays the current distance as a circular indicator, updating in real time as the servo scans the environment. This visualization enhances the user experience and provides an engaging way to interpret the sensor data.
-
+- **Processing Code**: [Path to Processing Code](path_to_your_processing_code.pde) <!-- Replace with the actual path to your Processing code -->
 ## Integration of Components
 The project successfully integrates the components to perform the following tasks:
 - Measure distance using the HC-SR04 sensor and adjust the position of the SG90 servo motor based on that measurement.
 - Use a potentiometer to adjust the scanning speed of the servo motor, allowing for user customization.
 - Provide visual feedback through red LEDs that indicate how close an object is to the sensor, enhancing the interactivity of the project.
 - Present a radar-like visualization of distance readings using Processing, making the data more accessible and visually appealing.
+
+## Project Functionality GIF
+![Project Functionality GIF](path_to_your_gif.gif)  <!-- Replace with the actual path to your GIF -->
 
 ## Difficulties Encountered
 During the project development, several challenges were encountered:
@@ -102,9 +106,7 @@ This project demonstrates the integration of an ultrasonic sensor, servo motor, 
 - Online tutorials on integrating sensors and motors with Arduino.
 - Processing documentation for creating visual displays.
 
-## Project Functionality GIF
-![Project Functionality GIF](path_to_your_gif.gif)  <!-- Replace with the actual path to your GIF -->
 
-## Code Paths
-- **Arduino Code**: [Path to Arduino Code](path_to_your_arduino_code.ino) <!-- Replace with the actual path to your Arduino code -->
-- **Processing Code**: [Path to Processing Code](path_to_your_processing_code.pde) <!-- Replace with the actual path to your Processing code -->
+
+
+
