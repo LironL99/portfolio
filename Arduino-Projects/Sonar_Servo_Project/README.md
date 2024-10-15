@@ -29,9 +29,11 @@ This project aims to create a distance measurement system using an ultrasonic se
 <img src="Media_files/Sonar_and_Servo.jpg" alt="Sonar_and_Servo" width="300"/>
 
 - **Potentiometer (B10K)**: A variable resistor with a total resistance of 10k ohms, allowing users to adjust the scanning speed of the servo motor. It is connected to an analog pin for reading the resistance value, which helps in mapping the servo's delay time.
-![Potentiometer](/Arduino-Projects/Sonar_Servo_Project/Media_files/Potentiometer.jpg) 
+<img src="Media_files/Potentiometer.jpg" alt="Potentiometer" width="300"/>
+
 - **Red LEDs**: Three red LEDs provide visual feedback about the distance to an object. They are connected to digital pins for control. **Each LED is connected with a 220-ohm resistor to limit the current and prevent damage.**
-![LEDs](/Arduino-Projects/Sonar_Servo_Project/Media_files/LEDs.jpg) 
+<img src="Media_files/LEDs.jpg" alt="LEDs" width="300"/>
+
 - **Processing Environment**: Used to create a radar-like visual display that represents the measured distance in real time. The Processing sketch connects to the Arduino via serial communication to receive distance data and update the display accordingly.
 
 ## Wiring Diagram
