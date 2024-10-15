@@ -123,4 +123,7 @@ void ledControl() {
   } else {                         // Far distance, no LEDs on
       // No action needed, all LEDs remain LOW
   }
+  // Debugging: Print the distance
+  // Serial.print("Distance: ");
+  //Serial.println(distance);
 }
