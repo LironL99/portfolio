@@ -27,7 +27,7 @@ This project aims to create a distance measurement system using an ultrasonic se
 
 - **Potentiometer (B10K)**: A variable resistor with a total resistance of 10k ohms, allowing users to adjust the scanning speed of the servo motor. It is connected to an analog pin for reading the resistance value, which helps in mapping the servo's delay time.
 
-- **Red LEDs**: Three red LEDs provide visual feedback about the distance to an object. They are connected to digital pins for control.
+- **Red LEDs**: Three red LEDs provide visual feedback about the distance to an object. They are connected to digital pins for control. **Each LED is connected with a 220-ohm resistor to limit the current and prevent damage.**
 
 - **Processing Environment**: Used to create a radar-like visual display that represents the measured distance in real time. The Processing sketch connects to the Arduino via serial communication to receive distance data and update the display accordingly.
 
@@ -42,7 +42,7 @@ The provided code utilizes various components to create a distance measurement a
 - **Servo Motor (SG90)**: Controlled via a PWM-capable digital pin (pin 9) to adjust the angle based on distance measurements.
 - **Ultrasonic Sensor (HC-SR04)**: Connected to pins 7 and 8 (trigPin and echoPin) to measure distance. The trigger pin sends a pulse, and the echo pin receives the reflected signal.
 - **Potentiometer (B10K)**: Connected to analog pin A0 to dynamically control the delay time between servo movements, allowing user input to adjust the speed of scanning.
-- **Red LEDs**: Connected to pins 10, 11, and 12 to provide visual feedback based on the measured distance.
+- **Red LEDs**: Connected to pins 10, 11, and 12 to provide visual feedback based on the measured distance. **Each LED is connected with a 220-ohm resistor to limit the current.**
 - **Processing Environment**: Used to visualize the distance data. The sketch continuously reads distance data from the serial port and updates a radar-like display that shows the current distance in a circular format.
 
 ### 2. Main Functionality
@@ -77,7 +77,7 @@ The Processing sketch provides a radar-like visualization of the distance readin
 This project successfully integrates the components to perform the following tasks:
 - Measure distance using the HC-SR04 sensor and adjust the position of the SG90 servo motor based on that measurement.
 - Use a potentiometer to adjust the scanning speed of the servo motor, allowing for user customization.
-- Provide visual feedback through red LEDs that indicate how close an object is to the sensor, enhancing the interactivity of the project.
+- Provide visual feedback through red LEDs that indicate how close an object is to the sensor, enhancing the interactivity of the project. **Each LED is connected with a 220-ohm resistor for current limiting.**
 
 ## Project Functionality
 ![Project Functionality](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality_GIF.gif) 
