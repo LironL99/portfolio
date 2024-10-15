@@ -37,7 +37,7 @@ This project aims to create a distance measurement system using an ultrasonic se
 - **Processing Environment**: Used to create a radar-like visual display that represents the measured distance in real time. The Processing sketch connects to the Arduino via serial communication to receive distance data and update the display accordingly.
 
 ## Wiring Diagram
-<img src="Media_files/Wiring-Diagram.jpg" alt="Wiring Diagram" width="300"/>
+<img src="Media_files/Wiring-Diagram.jpg" alt="Wiring-Diagram" width="300"/>
 
 ## Code Explanation
 The provided code utilizes various components to create a distance measurement and feedback system using an ultrasonic sensor, servo motor, potentiometer, LEDs, and a Processing display. Below is a breakdown of how these components work together.
