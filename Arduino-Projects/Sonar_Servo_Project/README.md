@@ -38,8 +38,8 @@ This project aims to create a distance measurement system using an ultrasonic se
 
 ## Code Explanation
 The provided code utilizes various components to create a distance measurement and feedback system using an ultrasonic sensor, servo motor, potentiometer, LEDs, and a Processing display. Below is a breakdown of how these components work together.
-- **Arduino Code**: [Path to Arduino Code](path_to_your_arduino_code.ino) <!-- Replace with the actual path to your Arduino code -->
-- 
+- **Arduino Code**: [Path to Arduino Code](/Arduino-Projects/Sonar_Servo_Project/IDE_code.ino)
+ 
 ### 1. Component Initialization
 - **Servo Motor (SG90)**: Controlled via a PWM-capable digital pin (pin 9) to adjust the angle based on distance measurements.
 - **Ultrasonic Sensor (HC-SR04)**: Connected to pins 7 and 8 (trigPin and echoPin) to measure distance. The trigger pin sends a pulse, and the echo pin receives the reflected signal.
@@ -73,8 +73,7 @@ This logic provides immediate visual feedback about the proximity of objects det
 
 ### 6. Processing Display
 The Processing sketch provides a radar-like visualization of the distance readings. It displays the current distance as a circular indicator, updating in real time as the servo scans the environment. This visualization enhances the user experience and provides an engaging way to interpret the sensor data.
-- **Processing Code**: [Path to Processing Code](path_to_your_processing_code.pde) <!-- Replace with the actual path to your Processing code -->
-  
+- **Processing Code**: [Path to Processing Code](/Arduino-Projects/Sonar_Servo_Project/Processing_code.pde)
 ## Integration of Components
 The project successfully integrates the components to perform the following tasks:
 - Measure distance using the HC-SR04 sensor and adjust the position of the SG90 servo motor based on that measurement.
