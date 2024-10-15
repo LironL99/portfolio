@@ -1,7 +1,5 @@
 # Ultrasonic Sensor Servo Control Project
-## Project Functionality
 ![Project Functionality](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality_GIF.gif) 
-- [**Full Demonstration (HQ)**](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality.mp4)
 ## Table of Contents
 1. [Project Overview](#project-overview)
 2. [Components Used](#components-used)
@@ -81,7 +79,7 @@ This project successfully integrates the components to perform the following tas
 - Provide visual feedback through red LEDs that indicate how close an object is to the sensor, enhancing the interactivity of the project.
 
 ## Project Functionality
-![Project Functionality](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality_GIF.gif) 
+The project is interactive and dynamic, allowing users to manipulate objects in the environment and observe real-time changes in both the LED indicators and the radar-like display.
 - [**Full Demonstration (HQ)**](/Arduino-Projects/Sonar_Servo_Project/Project_Functionality.mp4)
 
 ## Future Improvements
