@@ -86,6 +86,7 @@ This project successfully integrates the components to perform the following tas
 
 ## Project Functionality
 The project is interactive and dynamic, allowing users to manipulate objects in the environment and observe real-time changes in both the LED indicators and the radar-like display.
+
 ![Project Functionality](/Arduino-Projects/Sonar_Servo_Project/Media_files/Project_Functionality_GIF.gif) 
 - [**Full Demonstration (HQ)**](/Arduino-Projects/Sonar_Servo_Project/Media_files/Project_Functionality.mp4)
 
