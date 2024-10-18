@@ -6,7 +6,7 @@ Welcome to my portfolio! I'm a student of Electrical and Computer Engineering, f
 
 ### 1. Ultrasonic Sensor Servo Control Project 📡
 This project creates a **distance measurement system** using an ultrasonic sensor and a servo motor, providing visual feedback through red LEDs based on the measured distance. The system features a radar-like display using Processing, which visually represents distance readings in real time and allows users to adjust the scanning speed via a potentiometer. The project enhanced my skills in wiring, integrating components, debugging, and programming within the Arduino IDE using C++.
-- [View Project](https://github.com/LironL99/portfolio/tree/main/Ultrasonic-Sensor-Servo-Control-Project)
+- [View Project](https://github.com/LironL99/portfolio/tree/main/Arduino-Projects/Sonar_Servo_Project)
 
 ### 2. 4-bit ALU
 This project implements a 4-bit Arithmetic Logic Unit (ALU) using Verilog language. The ALU can perform basic operations like addition, subtraction, and logical operations, serving as a foundational digital design component.
