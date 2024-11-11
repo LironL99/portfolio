@@ -32,5 +32,3 @@ This course reinforced:
 - Hands-on experience with **MOSFET device physics**, **timing analysis**, and **complex circuit design**.
 
 ---
-
-**#VLSI #Semiconductor #Electronics #CadenceVirtuoso #CircuitDesign**
