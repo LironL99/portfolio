@@ -6,7 +6,7 @@ Welcome to my portfolio! I'm a student of Electrical and Computer Engineering, f
 
 ### 1. Automated Log Analysis & Alerting System 🛠️
 Developed a Python-based tool for **automated log parsing, anomaly detection, and real-time email alerts**, reducing debugging time by **90%** and generating structured **PDF/HTML reports with visual insights** for verification teams.
-- [View Project](https://github.com/LironL99/portfolio/tree/main/Automated-Log-Analysis)
+- [View Project](https://github.com/LironL99/portfolio/tree/main/Automated_Log_Analysis)
 
 ### 2. Ultrasonic Sensor Servo Control Project 📡
 This project creates a **distance measurement system** using an ultrasonic sensor and a servo motor, providing visual feedback through red LEDs based on the measured distance. The system features a radar-like display using Processing, which visually represents distance readings in real time and allows users to adjust the scanning speed via a potentiometer. The project enhanced my skills in wiring, integrating components, debugging, and programming within the Arduino IDE using C++.
