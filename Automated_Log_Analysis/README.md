@@ -74,8 +74,25 @@ This project significantly optimizes verification log analysis, reducing debuggi
   app_password = "your_app_password"
   ```
 
+## Data Visualization
+The system generates the following key visualizations to assist with log analysis:
+
+### **Runtime Analysis**
+![Runtime Analysis](runtime_plot.png)
+
+### **Error & Warning Distribution**
+![Errors and Warnings](errors_warnings_plot.png)
+
+### **Runtime Outlier Detection**
+![Outlier Detection](runtime_outliers_plot.png)
+
 ## How This Adds Value to a Team
 🔹 **Enhances Debugging Efficiency** – Engineers can quickly pinpoint failures and address root causes.  
 🔹 **Reduces Verification Overhead** – Eliminates manual log analysis, freeing up time for more critical tasks.  
 🔹 **Improves Test Coverage Understanding** – Enables teams to make data-driven decisions about test optimization.  
 🔹 **Seamless Integration with Existing Workflows** – Can be customized for different verification environments and methodologies.  
+
+## Final Thoughts
+This project showcases expertise in **automation, data analysis, and verification methodologies**, making it an excellent demonstration of problem-solving skills in chip design and validation environments.
+
+💡 **Ideal for verification engineers looking to automate failure detection and optimize test cycles!**
