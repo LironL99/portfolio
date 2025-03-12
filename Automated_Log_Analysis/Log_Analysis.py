@@ -184,9 +184,9 @@ with open("log_analysis_report.html", "w") as file:
 def send_email_alert():
     smtp_server = "smtp.gmail.com"  # ניתן לשנות ל-Outlook או Yahoo
     smtp_port = 587
-    sender_email = "lironl1999@gmail.com"
-    receiver_email = "lironl1999@gmail.com"
-    app_password = "jaoq qyye uoxj wwjb"  # השתמש בסיסמת אפליקציה
+    sender_email = ""
+    receiver_email = ""
+    app_password = ""  # השתמש בסיסמת אפליקציה
     subject = "Simulation Log Alerts"
     body = "\n".join(alerts) if alerts else "No alerts generated."
     
