@@ -1,36 +1,48 @@
 # Log Analysis for Verification Simulations
 
 ## Why This Project Matters
-This project demonstrates the ability to **automate verification log analysis** efficiently, reducing manual debugging time and improving failure detection in simulation processes. The script is designed to help hardware verification engineers quickly identify problematic tests and optimize runtime performance.
+This project automates the analysis of verification simulation logs, reducing manual debugging time and improving failure detection. The tool efficiently processes logs to extract critical insights, enabling engineers to optimize their verification processes.
 
 ## Overview
-This Python-based tool automates the analysis of log files from verification simulations. The script extracts and summarizes key insights, including:
-- Number of INFO, WARNING, and ERROR messages per test
-- Runtime of each test
-- Summary of errors and warnings
-- Identification of tests with unusual runtime outliers
+This Python-based tool analyzes log files from verification simulations, providing:
+- Detection of INFO, WARNING, and ERROR messages per test
+- Runtime analysis of each test
+- Identification of common errors and warnings
+- Detection of unusual test runtime outliers
 
 ## How to Use
 ### 1. Prerequisites
 - Python 3.x installed
-- A simulation log file (e.g., `simulation_log_high_anomalies.txt`) in the workspace
+- A simulation log file (e.g., `simulation_log_extended.txt`) in the workspace
 
 ### 2. Running the Script
-Place the `simulation_log_high_anomalies.txt` file in the same directory as the script, then run:
+Place the `simulation_log_extended.txt` file in the same directory as the script, then run:
 ```bash
 python Log_Analysis.py
 ```
 
 ### 3. Example Output
 ```
+Most Common Errors:
+Assertion failed at module 'ALU'.: 7 occurrences
+Register write collision detected.: 7 occurrences
+Stack overflow detected in function call.: 5 occurrences
+Memory corruption detected at address 0x1ACF.: 4 occurrences
+Critical bus contention error.: 4 occurrences
+
+Most Common Warnings:
+Timing violation at register interface.: 8 occurrences
+Potential deadlock detected in pipeline.: 7 occurrences
+Voltage fluctuation detected.: 7 occurrences
+Unaligned memory access detected.: 7 occurrences
+High temperature warning on core.: 4 occurrences
+
 Test Summary:
-Test 001: Infos=2, Errors=1, Warnings=1, Runtime=16.9 sec
-Test 002: Infos=2, Errors=0, Warnings=1, Runtime=7.4 sec
-Test 003: Infos=2, Errors=1, Warnings=1, Runtime=21.7 sec
-Test 004: Infos=2, Errors=1, Warnings=1, Runtime=34.5 sec
-Test 005: Infos=2, Errors=1, Warnings=1, Runtime=34.7 sec
+Test 001: Infos=2, Errors=1, Warnings=0, Runtime=33.7 sec
+Test 002: Infos=2, Errors=1, Warnings=1, Runtime=39.1 sec
+Test 003: Infos=2, Errors=1, Warnings=1, Runtime=86.3 sec
 ...
-Outlier Tests (Unusual Runtime): ['015', '019', '029']
+Outlier Tests (Unusual Runtime): ['003', '015', '033']
 ```
 
 ## Key Features
@@ -40,6 +52,7 @@ Outlier Tests (Unusual Runtime): ['015', '019', '029']
   - Runtime analysis with outlier detection.
   - Scatter plot for identifying unusual runtime trends.
 - ⚠ **Intelligent Failure Detection:** Automatically flags tests with significant performance deviations.
+- 🔍 **Common Error Analysis:** Identifies recurring failures in multiple tests.
 
 ## Visualization Examples
 The script generates the following graphs:
@@ -51,11 +64,11 @@ The script generates the following graphs:
    - Scatter plot highlighting tests with significantly higher runtime.
 
 ## Why It Stands Out
-This tool is not just about parsing logs—it provides **actionable insights** that help engineers optimize their verification workflow. By automating failure detection and performance tracking, it reduces debugging time and enhances efficiency in hardware verification environments.
+This tool enhances verification efficiency by automating log analysis and failure detection. Engineers can use it to pinpoint recurring issues, optimize test performance, and streamline debugging processes.
 
 ## Next Steps
 - Expand support for additional log formats.
-- Implement advanced trend analysis for recurring failures.
+- Implement trend analysis for recurring failures.
 - Develop automated alert mechanisms for critical failures.
 
 ## Contact
