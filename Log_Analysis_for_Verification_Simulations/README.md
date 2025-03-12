@@ -9,7 +9,9 @@ This project automates the analysis of verification simulation logs, providing i
 ✅ **Graphical Visualization** – Generates bar charts and scatter plots for insights.  
 ✅ **Automated Report Generation** – Creates professional reports in PDF and HTML formats.  
 ✅ **Email Notifications** – Sends alerts when test failures exceed thresholds, attaching reports.  
-✅ **Alert Logging** – Saves all triggered alerts in `alerts.log`.
+✅ **Alert Logging** – Saves all triggered alerts in `alerts.log`.  
+✅ **Threshold-Based Alert System** – Alerts are triggered when errors exceed a set threshold or runtime anomalies are detected.  
+✅ **Fully Configurable Email System** – Uses SMTP for automated email notifications.  
 
 ## How It Works
 1. **Run the script:**
@@ -19,9 +21,10 @@ This project automates the analysis of verification simulation logs, providing i
 2. **The script performs:**
    - Log parsing and message categorization.
    - Statistical analysis of recurring errors/warnings.
-   - Runtime outlier detection.
-   - Report generation (PDF & HTML).
+   - Runtime outlier detection using statistical thresholds.
+   - Report generation (PDF & HTML) including visual graphs.
    - Email notifications with attached reports.
+   - Logs all triggered alerts into `alerts.log`.
 
 ## Example Output
 ```
@@ -43,24 +46,27 @@ Outlier Tests: ['003', '015', '033']
 ## Reports & Alerts
 - **Generated Reports:**
   - `log_analysis_report.pdf` – A structured PDF report with data and graphs.
-  - `log_analysis_report.html` – A web-friendly, interactive report.
+  - `log_analysis_report.html` – A web-friendly, interactive report including graphs.
   - `alerts.log` – A record of all critical alerts triggered.
 - **Email Alerts:**
   - If a test exceeds the error threshold or runtime anomaly is detected, an email notification is sent.
   - Reports are automatically attached to the email.
+  - SMTP settings must be configured for email delivery.
 
 ## Prerequisites
 - **Python 3.x**
 - Required libraries:
-  ```bash
-  pip install matplotlib numpy fpdf smtplib
+**re, matplotlib, numpy, collections, fpdf, os, smtplib, ssl, email**
+  
+- Configure email SMTP settings (e.g., Gmail, Outlook, Yahoo) in the script:
+  ```python
+  smtp_server = "smtp.gmail.com"
+  smtp_port = 587
+  sender_email = "your_email@gmail.com"
+  receiver_email = "recipient@example.com"
+  app_password = "your_app_password"
   ```
-- Configure email SMTP settings (e.g., Gmail, Outlook, Yahoo) in the script.
 
-## Future Enhancements
-🔹 **Slack Integration** – Send alerts directly to Slack channels.  
-🔹 **Machine Learning Anomaly Detection** – Predict failures before they happen.  
-🔹 **CI/CD Pipeline Integration** – Automate testing with Jenkins or GitHub Actions.
 
 ## Conclusion
 This tool enhances verification efficiency by automating log analysis, visualization, and failure detection. It helps engineers quickly identify issues, optimize test performance, and streamline debugging.
