@@ -8,18 +8,18 @@ import smtplib
 import ssl
 from email.message import EmailMessage
 
-# נתיב קובץ הלוג
+# Log file path
 log_file_path = "simulation_log_extended.txt"
 alert_log_path = "alerts.log"
 
-# תבניות לזיהוי סוגי הודעות
+# Patterns for identifying message types
 log_patterns = {
     "INFO": re.compile(r'INFO: (.*)'),
     "WARNING": re.compile(r'WARNING: (.*)'),
     "ERROR": re.compile(r'ERROR: (.*)')
 }
 
-# משתנה לאחסון מידע מהלוג
+# Variable to store log data
 log_data = defaultdict(lambda: {"errors": 0, "warnings": 0, "infos": 0, "runtime": 0})
 error_messages = []
 warning_messages = []
@@ -27,7 +27,7 @@ warning_messages = []
 test_id_pattern = re.compile(r'TEST_ID=(\d+)')
 runtime_pattern = re.compile(r'Simulation completed in ([\d.]+) seconds')
 
-# קריאת קובץ הלוג וניתוח הנתונים
+# Reading the log file and analyzing the data
 with open(log_file_path, "r") as file:
     for line in file:
         test_id_match = test_id_pattern.search(line)
@@ -45,11 +45,11 @@ with open(log_file_path, "r") as file:
             if runtime_match:
                 log_data[test_id]["runtime"] = float(runtime_match.group(1))
 
-# ניתוח הודעות שחוזרות על עצמן
+# Analysis of recurring messages
 error_counts = Counter(error_messages)
 warning_counts = Counter(warning_messages)
 
-# הצגת הנתונים במסך
+# Displaying the data on screen
 print("\nMost Common Errors:")
 for error, count in error_counts.most_common(5):
     print(f"- {error} ({count} occurrences)")
@@ -62,13 +62,13 @@ print("\nTest Summary:")
 for test_id, data in log_data.items():
     print(f"Test {test_id}: Infos={data['infos']}, Errors={data['errors']}, Warnings={data['warnings']}, Runtime={data['runtime']} sec")
    
-# יצירת גרפים
+# Creating graphs
 test_ids = list(log_data.keys())
 errors = np.array([log_data[test]['errors'] for test in test_ids])
 warnings = np.array([log_data[test]['warnings'] for test in test_ids])
 runtimes = np.array([log_data[test]['runtime'] for test in test_ids])
 
-# זיהוי חריגות בזמן ריצה
+# Identifying runtime outliers
 mean_runtime = np.mean(runtimes)
 std_runtime = np.std(runtimes)
 threshold = mean_runtime + 2 * std_runtime
@@ -111,7 +111,7 @@ plt.grid(axis='y', linestyle='--', alpha=0.7)
 plt.savefig("runtime_outliers_plot.png")
 plt.close()
 
-# שמירת התראות לקובץ
+# Saving alerts to a file
 alerts = []
 with open(alert_log_path, "w") as alert_file:
     for test_id, data in log_data.items():
@@ -124,7 +124,7 @@ with open(alert_log_path, "w") as alert_file:
             alerts.append(alert_msg)
             alert_file.write(alert_msg + "\n")
 
-# יצירת דוח PDF
+# Creating a PDF report
 pdf = FPDF()
 pdf.set_auto_page_break(auto=True, margin=15)
 pdf.add_page()
@@ -138,7 +138,7 @@ for test_id, data in log_data.items():
     pdf.cell(200, 10, f"Test {test_id}: Infos={data['infos']}, Errors={data['errors']}, Warnings={data['warnings']}, Runtime={data['runtime']} sec", ln=True)
 pdf.ln(5)
 
-# הוספת הגרפים לדוח PDF
+# Adding graphs to the PDF report
 for image in ["errors_warnings_plot.png", "runtime_plot.png", "runtime_outliers_plot.png"]:
     if os.path.exists(image):
         pdf.add_page()
@@ -146,7 +146,7 @@ for image in ["errors_warnings_plot.png", "runtime_plot.png", "runtime_outliers_
 
 pdf.output("log_analysis_report.pdf")
 
-# יצירת דוח HTML
+# Creating an HTML report
 html_content = """
 <html>
 <head>
@@ -169,7 +169,7 @@ for test_id, data in log_data.items():
     html_content += f"<tr><td>{test_id}</td><td>{data['infos']}</td><td>{data['errors']}</td><td>{data['warnings']}</td><td>{data['runtime']}</td></tr>"
 html_content += "</table>"
 
-# הוספת גרפים
+# Adding graphs
 for image in ["errors_warnings_plot.png", "runtime_plot.png", "runtime_outliers_plot.png"]:
     if os.path.exists(image):
         html_content += f'<h3>{image.replace(".png", "").replace("_", " ").title()}</h3>'
@@ -180,13 +180,13 @@ html_content += "</body></html>"
 with open("log_analysis_report.html", "w") as file:
     file.write(html_content)
 
-# פונקציה לשליחת מייל עם ההתראות
+# Function to send an email with alerts
 def send_email_alert():
-    smtp_server = "smtp.gmail.com"  # ניתן לשנות ל-Outlook או Yahoo
+    smtp_server = "smtp.gmail.com"  # Change to Outlook or Yahoo if needed
     smtp_port = 587
     sender_email = ""
     receiver_email = ""
-    app_password = ""  # השתמש בסיסמת אפליקציה
+    app_password = ""  # Use an app password
     subject = "Simulation Log Alerts"
     body = "\n".join(alerts) if alerts else "No alerts generated."
     
@@ -196,7 +196,7 @@ def send_email_alert():
     msg['Subject'] = subject
     msg.set_content(body)
     
-    # הוספת דוחות מצורפים
+    # Adding attached reports
     for file_path in ["log_analysis_report.pdf", "log_analysis_report.html", alert_log_path]:
         if os.path.exists(file_path):
             with open(file_path, "rb") as f:
@@ -204,7 +204,7 @@ def send_email_alert():
                 file_name = os.path.basename(file_path)
                 msg.add_attachment(file_data, maintype='application', subtype='octet-stream', filename=file_name)
     
-    # שליחת המייל עם הצפנה
+    # Sending the email with encryption
     context = ssl.create_default_context()
     with smtplib.SMTP(smtp_server, smtp_port) as server:
         server.starttls(context=context)
@@ -213,6 +213,6 @@ def send_email_alert():
     
     print("Email alert sent successfully!")
 
-# שליחת התראות אם קיימות
+# Sending alerts if they exist
 if alerts:
     send_email_alert()
