@@ -47,6 +47,6 @@ Future improvements can include:
 
 ## Author
 
-[Liron Leibovich]  
-[leibovichliron@gmail.com]
+Liron Leibovich  
+leibovichliron@gmail.com
 
