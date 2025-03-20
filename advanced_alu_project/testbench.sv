@@ -37,7 +37,7 @@ module tb_advanced_alu;
         integer i;
         reg [8*16-1:0] op_name;  // 16-character string for opcode name
 
-        num_tests = 20;  // Number of random tests
+        num_tests = 100;  // Number of random tests
         for (i = 0; i < num_tests; i = i + 1) begin
             // Generate random values in the range -8 to 7 for signed variables
             a = $urandom_range(-8, 7);
