@@ -45,8 +45,11 @@ Future improvements can include:
 - **Advanced Verification:** For example, integrate UVM to build a transaction-level scoreboard.
 
 
-## Author
+### Contact Information
+- Liron Leibovich
+- LinkedIn: [Liron Leibovich](https://www.linkedin.com/in/liron-leibovich1)
+- GitHub: [LironL99](https://github.com/LironL99)
 
-Liron Leibovich  
-leibovichliron@gmail.com
+
+
 
