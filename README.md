@@ -11,7 +11,7 @@ Developed a Python-based tool for **automated log parsing, anomaly detection, an
 ### 2. Advanced ALU Project
 This project implements an advanced Arithmetic Logic Unit (ALU) using SystemVerilog. It features multiple operations including addition, subtraction, bitwise operations, multiplication, and shifts, along with an advanced testbench incorporating randomized testing, deterministic edge tests, assertions, and functional coverage.  
 Future enhancements include improved coverage (e.g., cross coverage between opcode and inputs), additional features like division and overflow/zero flags, and integration of advanced verification methodologies (e.g., UVM).  
-- [View Project](https://github.com/LironL99/portfolio/tree/main/Advanced-ALU-Project)
+- [View Project](https://github.com/LironL99/portfolio/tree/main/advanced_alu_project)
 
 ### 3. Ultrasonic Sensor Servo Control Project 📡
 This project creates a **distance measurement system** using an ultrasonic sensor and a servo motor, providing visual feedback through red LEDs based on the measured distance. The system features a radar-like display using Processing, which visually represents distance readings in real time and allows users to adjust the scanning speed via a potentiometer. The project enhanced my skills in wiring, integrating components, debugging, and programming within the Arduino IDE using C++.
