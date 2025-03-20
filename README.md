@@ -1,6 +1,7 @@
 # Liron's Portfolio
 
-Welcome to my portfolio! I'm a student of Electrical and Computer Engineering, focusing on VLSI and Computers tracks. This portfolio showcases a variety of projects that highlight my expertise in **digital design**, **systems programming**, **machine learning**, and **computer architecture**.
+Welcome to my portfolio! I'm a fourth-year Electrical & Computer Engineering student at Ben-Gurion University, specializing in **VLSI** and **Computers**. This portfolio showcases projects that highlight my expertise in digital design, verification, embedded development, and systems programming—demonstrating a strong bridge between theoretical knowledge and practical, real-world applications in the semiconductor and computing industries.
+
 
 ## Featured Projects
 
