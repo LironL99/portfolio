@@ -9,7 +9,7 @@ Welcome to my portfolio! I'm a fourth-year Electrical & Computer Engineering stu
 ### 1. RISC Pipeline CPU (Verilog)
 A fully modular 5-stage pipelined RISC processor built from scratch using Verilog HDL, featuring separated instruction and data memory, a register file, and a combinational ALU. The project evolved through several stages: from a single-cycle CPU, to a FSM-based ALU, and finally to a clean pipelined architecture. Instruction decoding is fully modular, with support for R/I/S/B/J formats and 5-bit opcode expansion.  
 Includes a dedicated testbench, waveform debugging with ModelSim, and ongoing work on forwarding and hazard detection logic.
-- [View Project](https://github.com/LironL99/portfolio/tree/main/RISC_Pipeline_CPU)
+- [View Project](https://github.com/LironL99/portfolio/tree/main/mini-CPU)
 
 ### 2. Automated Log Analysis & Alerting System 🛠️  
 Developed a Python-based tool for **automated log parsing, anomaly detection, and real-time email alerts**, reducing debugging time by **90%** and generating structured **PDF/HTML reports with visual insights** for verification teams.
