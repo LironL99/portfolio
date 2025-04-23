@@ -127,7 +127,7 @@ These principles helped maintain both pedagogical value and correctness througho
 - **B-type**: `beq`, `blt`
 - **NOP**: encoded as `0x00000000`
 
-  ## Module Overview
+## Module Overview
 
 ### Program Counter (PC)
 - Holds address of current instruction.
