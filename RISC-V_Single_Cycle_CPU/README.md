@@ -21,13 +21,12 @@
    - [Data Memory](#data-memory)
    - [Branch Logic](#branch-logic)
 8. [Testing and Simulation](#testing-and-simulation)
-9. [Waveform Analysis](#waveform-analysis)
-10. [Project Structure](#project-structure)
-11. [Project Build Process](#project-build-process)
-12. [Personal Reflection](#personal-reflection)
-13. [Future Work](#future-work)
-14. [References](#references)
-15. [Author and Contact](#author-and-contact)
+9. [Project Structure](#project-structure)
+10. [Project Build Process](#project-build-process)
+11. [Personal Reflection](#personal-reflection)
+12. [Future Work](#future-work)
+13. [References](#references)
+14. [Author and Contact](#author-and-contact)
 
 
 
@@ -283,15 +282,15 @@ These principles helped maintain both pedagogical value and correctness througho
 2. Inside the terminal, write ```do simulate.do```. It will create the ```work``` folder, compile ```RISC-V_Single_Cycle_CPU.v``` and simulate ```RISCV_ToP_Tb```.
 
 
-
-### Expected Waveform Snippets
-
+### Waveform Analysis
 - ![Waves](pictures/Waves.png)
-- 
   *Registers Content Before & After Simulation*:
 - ![Regs Before](pictures/Regs_Before.png)
 - ![Regs After](pictures/Regs_After.png)
   
+We can observe the flow of data from instruction fetch to execution, including the use of ALU, register file updates, memory read/write operations, and branching behavior.
+
+
 ## Project Structure
 ```structure
 RISC-V_Single_Cycle_CPU/
