@@ -25,6 +25,9 @@
 10. [Project Structure](#project-structure)
 11. [References](#references)
 12. [Future Work](#future-work)
+13. [Author and Contact](Author-and-Contact-Information)
+
+
 
 ## Project Overview
 
