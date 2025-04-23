@@ -84,7 +84,7 @@ This CPU is implemented as a **single-cycle architecture** for clarity and simpl
 
 📷 *Initial Register Contents:* `pictures/Control_Unit.png`  
 📷 *Final Register Contents:*
-![Control_Unit.png](pictures/Control_Unit.png) 
+-![Control_Unit.png](pictures/Control_Unit.png) 
 
 ### Immediate Generator
 - Extracts and sign-extends immediates for different instruction formats.
