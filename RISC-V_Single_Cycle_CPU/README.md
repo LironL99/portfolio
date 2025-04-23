@@ -224,7 +224,7 @@ These principles helped maintain both pedagogical value and correctness througho
 #### Instruction Program
 
 ```verilog
-I_Mem[0]  = 32'b00000000000000000000000000000000;    // NOP
+		I_Mem[0]  = 32'b00000000000000000000000000000000;    // NOP
 
 		// ADD x5 = x1 + x2      → 10 + 20 = 30
 		I_Mem[4]  = 32'b0000000_00010_00001_000_00101_0110011;
