@@ -280,7 +280,7 @@ These principles helped maintain both pedagogical value and correctness througho
 
 ### How to Exectue the simulation
 1. Open directory ```RISC-V_Single_Cycle_CPU``` inside ModelSim.
-2. Write ```do simulate.do```. It will create the ```work``` folder, compile ```RISC-V_Single_Cycle_CPU.v``` and simulate ```RISCV_ToP_Tb```.
+2. Inside the terminal, write ```do simulate.do```. It will create the ```work``` folder, compile ```RISC-V_Single_Cycle_CPU.v``` and simulate ```RISCV_ToP_Tb```.
 
 
 
