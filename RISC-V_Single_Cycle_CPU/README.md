@@ -36,3 +36,14 @@ This project implements a **RISC-V Single-Cycle CPU** from scratch using Verilog
 
 In this project, we chose RISC-V because it's the **modern industry standard** for instruction sets and well-suited for educational CPU designs like this one. The **single-cycle** approach emphasizes clarity while demonstrating core principles.
 
+## Single Cycle vs Pipelined Architecture
+
+| Feature            | Single-Cycle CPU     | Pipelined CPU          |
+| ------------------ | -------------------- | ---------------------- |
+| Clock Cycles/Instr | 1 (fixed)            | ~1 (on average)        |
+| Performance        | Lower (longer cycle) | Higher (shorter cycle) |
+| Design Complexity  | Simpler              | More complex           |
+
+This CPU is implemented as a **single-cycle architecture** for clarity and simplicity.
+
+
