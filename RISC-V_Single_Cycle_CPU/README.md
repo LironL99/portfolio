@@ -110,7 +110,7 @@ This CPU is implemented as a **single-cycle architecture** for clarity and simpl
 |                 | `I[2]`        | `0`       | `0`  | `0` |`0`  |
 |                 | `I[1]`        | `1`        | `1`  | `1` | `1` |
 |                 | `I[0]`        |` 1`        | `1` | `1` |`1`  |
-| **Outputs**     |`ALUSrc` | `0`        | `1 ` | `1` | `0` |
+| **Outputs**     |`ALUSrc` | `0`        | `1` | `1` | `0` |
 |                 | `MemtoReg`    | `0`        | `1` | `X` | `X` |
 |                 | `RegWrite` | `1`        | `1`| `0`| `0`  |
 |                 | `MemRead`  | `0`        | `1`| `0`| `0`  |
@@ -127,17 +127,17 @@ This CPU is implemented as a **single-cycle architecture** for clarity and simpl
 
 | ALUOp | Funct7  | Funct3 | Operation     |
 |-------|---------|--------|---------------|
-| 10    | 0000000 | 000    | ADD / ADDI    |
-| 10    | 0100000 | 000    | SUB           |
-| 10    | xxxxxxx | 010    | SLT / SLTI    |
-| 10    | xxxxxxx | 111    | AND / ANDI    |
-| 10    | xxxxxxx | 110    | OR / ORI      |
-| 10    | xxxxxxx | 100    | XOR / XORI    |
-| 10    | 0000000 | 001    | SLL / SLLI    |
-| 10    | 0000000 | 101    | SRL / SRLI    |
-| 10    | 0100000 | 101    | SRA / SRAI    |
-| 11    | 0000000 | 000    | SUB (BEQ)     |
-| 11    | 0000000 | 100    | SLT (BLT)     |
+| `10`    | `0000000` | `000`    | ADD / ADDI    |
+| `10`    | `0100000` | `000`    | SUB           |
+| `10`    | `xxxxxxx` | `010`    | SLT / SLTI    |
+| `10`    | `xxxxxxx` | `111`    | AND / ANDI    |
+| `10`    | `xxxxxxx` | `110`    | OR / ORI      |
+| `10`    | `xxxxxxx` | `100`    | XOR / XORI    |
+| `10`    | `0000000` | `001`    | SLL / SLLI    |
+| `10`    | `0000000`| `101`   | SRL / SRLI    |
+| `10`    | `0100000` | `101`    | SRA / SRAI    |
+| `11`    | `0000000` | `000`    | SUB (BEQ)     |
+| `11`    | `0000000` | `100`    | SLT (BLT)     |
 
 ### ALU
 
