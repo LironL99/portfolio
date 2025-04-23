@@ -1,0 +1,27 @@
+# RISC-V Single Cycle CPU Project
+
+## Table of Contents
+
+1. [Project Overview](#project-overview)
+2. [What is RISC-V and How It Compares to CISC](#what-is-risc-v-and-how-it-compares-to-cisc)
+3. [Single Cycle vs Pipelined Architecture](#single-cycle-vs-pipelined-architecture)
+4. [Features and Instruction Support](#features-and-instruction-support)
+5. [Module Overview](#module-overview)
+   - [Program Counter (PC)](#program-counter-pc)
+   - [PC Adder](#pc-adder)
+   - [Instruction Memory](#instruction-memory)
+   - [Register File](#register-file)
+   - [Immediate Generator](#immediate-generator)
+   - [Main Control Unit](#main-control-unit)
+   - [ALU Control](#alu-control)
+   - [ALU](#alu)
+   - [Muxes](#muxes)
+   - [Data Memory](#data-memory)
+   - [Branch Logic](#branch-logic)
+6. [Testing and Simulation](#testing-and-simulation)
+7. [Waveform Analysis](#waveform-analysis)
+8. [Project Build Process](#project-build-process)
+9. [Personal Reflection](#personal-reflection)
+10. [Project Structure](#project-structure)
+11. [References](#references)
+12. [Future Work](#future-work)
