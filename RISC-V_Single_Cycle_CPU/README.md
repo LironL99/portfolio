@@ -22,11 +22,11 @@
    - [Branch Logic](#branch-logic)
 8. [Testing and Simulation](#testing-and-simulation)
 9. [Waveform Analysis](#waveform-analysis)
-10. [Project Build Process](#project-build-process)
-11. [Personal Reflection](#personal-reflection)
-12. [Project Structure](#project-structure)
-13. [References](#references)
-14. [Future Work](#future-work)
+10. [Project Structure](#project-structure)
+11. [Project Build Process](#project-build-process)
+12. [Personal Reflection](#personal-reflection)
+13. [Future Work](#future-work)
+14. [References](#references)
 15. [Author and Contact](#author-and-contact)
 
 
@@ -292,9 +292,18 @@ These principles helped maintain both pedagogical value and correctness througho
 - ![Regs Before](pictures/Regs_Before.png)
 - ![Regs After](pictures/Regs_After.png)
   
+## Project Structure
+```structure
+RISC-V_Single_Cycle_CPU/
+├── RISC-V_Single_Cycle_CPU.v         # Full CPU implementation
+├── RISCV_ToP_Tb.v         # Testbench
+├── simulate.do            # Simulation waveform script
+├── waveform.vcd           # Generated waveform
+├── pictures/              
+├── Computer_Organization_And_Design_RISC-V Edition_Morgan_Kaufmann.pdf
+```
 
 ## Project Build Process
-
 1. **Theoretical Study**: Learned about RISC-V architecture and ISA design using the *Computer Organization and Design* textbook.
 2. **Module Implementation**: Built all modules manually in Verilog based on dataflow diagrams.
 3. **Integration**: Manually wired modules together in the `RISCV_Top` module.
@@ -311,28 +320,18 @@ I coded each module from scratch, gradually using ChatGPT to assist with code ge
 
 Overall, this project was both educational and enjoyable, and I see it as a strong basis for more advanced future projects.
 
-## Project Structure
-```structure
-RISC-V_Single_Cycle_CPU/
-├── RISC-V_Single_Cycle_CPU.v         # Full CPU implementation
-├── RISCV_ToP_Tb.v         # Testbench
-├── simulate.do            # Simulation waveform script
-├── waveform.vcd           # Generated waveform
-├── pictures/              
-├── Computer_Organization_And_Design_RISC-V Edition_Morgan_Kaufmann.pdf
-```
-
-## References
-
-- **Computer Organization And Design: RISC-V Edition** — Morgan Kaufmann.
-- **Central Processing Unit Architecture - Theory** — Dr. Guy Tel-Zur, Ben-Gurion University
-
 ## Future Work
 
 - Support for additional instructions
 - MIPS or RISC-V pipeline extension
 - Hazard detection and forwarding
 - Full assembler + memory file loader
+
+## References
+
+- **Computer Organization And Design: RISC-V Edition** — Morgan Kaufmann.
+- **Central Processing Unit Architecture - Theory** — Dr. Guy Tel-Zur, Ben-Gurion University
+
 
 ## Author and Contact
 
