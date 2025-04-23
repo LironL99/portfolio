@@ -82,6 +82,11 @@ This CPU is implemented as a **single-cycle architecture** for clarity and simpl
 📷 *Initial Register Contents:* `pictures/regs_before.png`  
 📷 *Final Register Contents:* `pictures/regs_after.png`
 
+
+
+
+
+
 ### Immediate Generator
 - Extracts and sign-extends immediates for different instruction formats.
 
