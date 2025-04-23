@@ -5,8 +5,10 @@
 1. [Project Overview](#project-overview)
 2. [What is RISC-V and How It Compares to CISC](#what-is-risc-v-and-how-it-compares-to-cisc)
 3. [Single Cycle vs Pipelined Architecture](#single-cycle-vs-pipelined-architecture)
-4. [Features and Instruction Support](#features-and-instruction-support)
-5. [Module Overview](#module-overview)
+4. [Data Flow](#data-flow)
+5. [Design Principles](#design-principles)
+6. [Features and Instruction Support](#features-and-instruction-support)
+7. [Module Overview](#module-overview)
    - [Program Counter (PC)](#program-counter-pc)
    - [PC Adder](#pc-adder)
    - [Instruction Memory](#instruction-memory)
@@ -18,14 +20,14 @@
    - [Muxes](#muxes)
    - [Data Memory](#data-memory)
    - [Branch Logic](#branch-logic)
-6. [Testing and Simulation](#testing-and-simulation)
-7. [Waveform Analysis](#waveform-analysis)
-8. [Project Build Process](#project-build-process)
-9. [Personal Reflection](#personal-reflection)
-10. [Project Structure](#project-structure)
-11. [References](#references)
-12. [Future Work](#future-work)
-13. [Author and Contact](#author-and-contact)
+8. [Testing and Simulation](#testing-and-simulation)
+9. [Waveform Analysis](#waveform-analysis)
+10. [Project Build Process](#project-build-process)
+11. [Personal Reflection](#personal-reflection)
+12. [Project Structure](#project-structure)
+13. [References](#references)
+14. [Future Work](#future-work)
+15. [Author and Contact](#author-and-contact)
 
 
 
@@ -48,6 +50,70 @@ In this project, we chose RISC-V because it's the **modern industry standard** f
 | Design Complexity  | Simpler              | More complex           |
 
 This CPU is implemented as a **single-cycle architecture** for clarity and simplicity.
+
+## Data Flow
+
+This section describes the step-by-step flow of data through the CPU during the execution of a single instruction.
+
+### 🔄 Instruction Execution Steps
+
+1. **Instruction Fetch (IF):**
+   - The **Program Counter (PC)** holds the address of the current instruction.
+   - The **PC Adder** calculates the next sequential address `PC + 4`.
+   - The **Instruction Memory** reads the instruction located at the current PC.
+
+2. **Instruction Decode & Register Fetch (ID):**
+   - The instruction is parsed to extract control fields: `opcode`, `rs1`, `rs2`, `rd`, `funct3`, `funct7`, and `immediate`.
+   - The **Register File** reads data from `rs1` and `rs2`.
+   - The **Immediate Generator** computes a sign-extended immediate based on instruction type.
+   - The **Main Control Unit** generates the control signals needed for the instruction.
+   - The **ALU Control Unit** selects the appropriate operation for the ALU.
+
+3. **Execution (EX):**
+   - **Mux1** selects between register value and immediate as the second ALU operand.
+   - The **ALU** performs the operation (e.g., ADD, SUB, SLT).
+   - The **Zero flag** is set if the ALU result is zero.
+   - The **Branch Adder** computes `PC + (imm << 2)` for branch target.
+   - **Mux2** selects between PC+4 and the branch target based on `Branch & Zero`.
+
+4. **Memory Access (MEM):**
+   - For load/store instructions:
+     - The ALU result is used as the address.
+     - **Data Memory** reads or writes a 32-bit word.
+
+5. **Write Back (WB):**
+   - **Mux3** selects between ALU result and data loaded from memory.
+   - The selected value is written back to register `rd`.
+
+📷 *See data flow diagram in:* `pictures/data_flow.png`
+
+
+## Design Principles
+
+This project follows several core design principles intended to enhance learning and maintain a clear and robust architecture.
+
+### ✅ Simplicity
+- Every instruction is executed in exactly one clock cycle.
+- Easy to debug and verify via waveform tracing.
+
+### 🧱 Modularity
+- Each component (ALU, Register File, Control Unit, etc.) is implemented in a self-contained Verilog module.
+- This allows independent testing and better code organization.
+
+### 🔍 Transparency
+- Signals, values, and transitions are observable at every stage via ModelSim.
+- Helps in understanding the internal behavior of each instruction.
+
+### 📐 Standard Compliance
+- Instruction formats strictly follow the **RISC-V base integer ISA**.
+- Opcodes, funct3, and funct7 are used exactly as defined in the specification.
+
+### 🔧 Manual Integration
+- All modules are connected manually in the `RISCV_Top` module.
+- Encourages hands-on learning and careful control signal routing.
+
+These principles helped maintain both pedagogical value and correctness throughout the development of this single-cycle CPU.
+
 
 
 ## Features and Instruction Support
@@ -97,7 +163,6 @@ This CPU is implemented as a **single-cycle architecture** for clarity and simpl
 - Decodes opcode to generate control signals: ALUOp, Branch, MemRead, etc.
 
 📄 *Control Signal Truth Table*:
-
 | Input or output | Signal name | R-format | lw | sw | beq |
 |-----------------|-------------|----------|----|----|-----|
 | **Inputs**      | `I[6]`        | `0`        | `0`  |`0`  |`1` |
@@ -146,8 +211,6 @@ This CPU is implemented as a **single-cycle architecture** for clarity and simpl
 - **Mux1**: Selects between register and immediate for ALU input B.
 - **Mux2**: Selects between `PC+4` and branch target.
 - **Mux3**: Chooses between ALU result and memory data for writeback.
-
-📷 *Mux Path Illustration:* `pictures/mux_diagram.png`
 
 ### Data Memory
 
