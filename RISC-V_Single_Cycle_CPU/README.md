@@ -85,7 +85,7 @@ This section describes the step-by-step flow of data through the CPU during the 
    - **Mux3** selects between ALU result and data loaded from memory.
    - The selected value is written back to register `rd`.
 
-📷 *See data flow diagram in:* `pictures/data_flow.png`
+- ![Data Path](pictures/Data_Path.png)
 
 
 ## Design Principles
