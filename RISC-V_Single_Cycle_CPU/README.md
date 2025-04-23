@@ -188,3 +188,70 @@ I_Mem[52] = 32'b0000000_00010_00100_100_00010_1100111;
 // ADD x15 = x3 + x3      → skipped due to branch
 I_Mem[56] = 32'b0000000_00011_00011_000_01111_0110011;
 
+I_Mem[60]  = 32'b00000000000000000000000000000000;    // NOP
+```
+
+### Simulation Setup
+
+- **Clock**: 100ns period  
+- **Reset**: Asserted for first 50ns  
+- **Run time**: 8000ns  
+- **Simulation performed in**: ModelSim 10.5b  
+
+### Expected Waveform Snippets
+
+📷 `pictures/full_waveform.png`  
+📷 `pictures/registers_before.png`  
+📷 `pictures/registers_after.png`
+
+## Project Build Process
+
+1. **Theoretical Study**: Learned about RISC-V architecture and ISA design using the *Computer Organization and Design* textbook.
+2. **Module Implementation**: Built all modules manually in Verilog based on dataflow diagrams.
+3. **Integration**: Manually wired modules together in the `RISCV_Top` module.
+4. **Instruction Testing**: Wrote a test program to verify arithmetic, logic, memory, and branch functionality.
+5. **Waveform Analysis**: Used ModelSim to trace signal correctness with `simulate.do` and waveform display.
+
+## Personal Reflection
+
+I completed this project while enrolled in the course *"Central Processing Unit Architecture - Theory"* by Dr. Guy Tel-Zur, which teaches ISA design with MIPS for instructional clarity. I decided to go a step further and implement a RISC-V processor, as it's more relevant for industry.
+
+Although real-world RISC-V CPUs are pipelined, this single-cycle model served as an excellent foundation. The main challenge was learning both theory and implementation simultaneously. Progress was slow initially but accelerated as confidence grew.
+
+I coded each module from scratch, gradually using ChatGPT to assist with code generation and debugging. Catching and fixing errors strengthened my understanding. All integration and signal connections were done manually based on architecture diagrams.
+
+Overall, this project was both educational and enjoyable, and I see it as a strong basis for more advanced future projects.
+
+## Project Structure
+```structure
+RISC-V_Single_Cycle_CPU/
+├── Single_Cycle.v         # Full CPU implementation
+├── RISCV_ToP_Tb.v         # Testbench
+├── simulate.do            # Simulation waveform script
+├── waveform.vcd           # Generated waveform
+├── docs/                  # Supporting images, tables
+├── pictures/              # PNG snapshots of waveforms, registers
+├── Computer_Organization_And_Design_RISC-V Edition_Morgan_Kaufmann.pdf
+```
+
+## References
+
+- **Computer Organization And Design: RISC-V Edition** — Morgan Kaufmann. *(Included in repo)*
+- **Central Processing Unit Architecture - Theory** — Dr. Guy Tel-Zur, Ben-Gurion University
+
+## Future Work
+
+- Support for additional instructions: `jal`, `jalr`, `lui`, `auipc`
+- MIPS or RISC-V pipeline extension
+- Hazard detection and forwarding
+- Full assembler + memory file loader
+
+## Author and Contact Information
+
+This project was created and maintained by **Liron Leibovich**, a fourth-year Electrical and Computer Engineering student at Ben-Gurion University of the Negev.
+
+For questions, feedback, or collaboration opportunities, feel free to connect:
+
+- 📧 Email: lironleibovich@gmail.com  
+- 🌐 LinkedIn: [linkedin.com/in/lironleibovich](https://www.linkedin.com/in/lironleibovich/)
+- 💻 GitHub: [github.com/LironL99](https://github.com/LironL99)
