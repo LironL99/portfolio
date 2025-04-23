@@ -219,7 +219,7 @@ These principles helped maintain both pedagogical value and correctness througho
 - Uses `Branch & Zero` to decide branch.
 
 
-### Testing and Simulation
+## Testing and Simulation
 
 #### Instruction Program
 
@@ -324,7 +324,7 @@ RISC-V_Single_Cycle_CPU/
 
 ## References
 
-- **Computer Organization And Design: RISC-V Edition** — Morgan Kaufmann. *(Included in repo)*
+- **Computer Organization And Design: RISC-V Edition** — Morgan Kaufmann.
 - **Central Processing Unit Architecture - Theory** — Dr. Guy Tel-Zur, Ben-Gurion University
 
 ## Future Work
