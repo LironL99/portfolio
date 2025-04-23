@@ -25,7 +25,7 @@
 10. [Project Structure](#project-structure)
 11. [References](#references)
 12. [Future Work](#future-work)
-13. [Author and Contact](Author-and-Contact-Information)
+13. [Author and Contact](author-and-contact)
 
 
 
@@ -249,7 +249,7 @@ RISC-V_Single_Cycle_CPU/
 - Hazard detection and forwarding
 - Full assembler + memory file loader
 
-## Author and Contact Information
+## Author and Contact
 
 This project was created and maintained by **Liron Leibovich**, a fourth-year Electrical and Computer Engineering student at Ben-Gurion University of the Negev.
 
