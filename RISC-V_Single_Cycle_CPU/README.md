@@ -338,6 +338,6 @@ This project was created and maintained by **Liron Leibovich**, a fourth-year El
 
 For questions, feedback, or collaboration opportunities, feel free to connect:
 
-- 📧 Email: lironleibovich@gmail.com  
+- 📧 Email: leibovichliron@gmail.com  
 - 🌐 LinkedIn: [linkedin.com/in/lironleibovich](https://www.linkedin.com/in/liron-leibovich1/)
 - 💻 Portfolio: [lironl99.github.io/](https://lironl99.github.io/)
