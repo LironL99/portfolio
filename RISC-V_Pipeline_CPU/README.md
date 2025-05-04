@@ -27,6 +27,8 @@ The final processor design is modular, cleanly structured in separate RTL compon
 
 At this stage, the design does not yet include hazard detection or resolution, which are planned for a future extension.
 
+- ![](pictures/Waves_Sequence.mp4)
+
 ---
 
 ## 🧠 Motivation & Background
