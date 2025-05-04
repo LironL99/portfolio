@@ -1,5 +1,5 @@
 # Pipelined RISC-V CPU in Verilog
-- [Previous Project - RISC-V Single Cycle CPU](https://github.com/LironL99/portfolio/edit/main/RISC-V_Single_Cycle_CPU/README.md)
+- [Previous Project - RISC-V Single Cycle CPU](https://github.com/LironL99/portfolio/tree/main/RISC-V_Single_Cycle_CPU)
 ## 📚 Table of Contents
 1. Project Overview
 2. Motivation & Background
