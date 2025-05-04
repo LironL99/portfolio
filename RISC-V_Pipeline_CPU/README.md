@@ -1,5 +1,5 @@
 # Pipelined RISC-V CPU in Verilog
-
+- [Previous Project - RISC-V Single Cycle CPU](https://github.com/LironL99/portfolio/edit/main/RISC-V_Single_Cycle_CPU/README.md)
 ## 📚 Table of Contents
 1. Project Overview
 2. Motivation & Background
@@ -212,3 +212,15 @@ Overall, this project has solidified my understanding of pipelining, datapath se
 - Patterson & Hennessy – *Computer Organization and Design, RISC-V Edition*, Chapters 4–5  
 - RISC-V Instruction Set Manual (RV32I)
 
+---
+
+
+## Author and Contact
+
+This project was created and maintained by **Liron Leibovich**, a fourth-year Electrical and Computer Engineering student at Ben-Gurion University of the Negev.
+
+For questions, feedback, or collaboration opportunities, feel free to connect:
+
+- 📧 Email: leibovichliron@gmail.com  
+- 🌐 LinkedIn: [linkedin.com/in/lironleibovich](https://www.linkedin.com/in/liron-leibovich1/)
+- 💻 Portfolio: [lironl99.github.io/](https://lironl99.github.io/)
