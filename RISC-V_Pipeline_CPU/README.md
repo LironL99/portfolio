@@ -13,6 +13,7 @@
 10. Personal Reflection
 11. How to Run
 12. References
+13. Author and Contact
 
 ---
 
@@ -57,8 +58,8 @@ By contrast, pipelining breaks the datapath into stages and uses pipeline regist
 - However, control becomes more complex, and hazards must be addressed (in future stages)
 
 In this project, we successfully transitioned from a single-cycle CPU to a pipelined version by introducing separation between stages, handling control signal propagation, and validating that each instruction executes correctly over time.
-- ![](pictures/Comparison1.png)
 - ![](pictures/Comparison2.png)
+- ![](pictures/Comparison1.png)
 
 ---
 
@@ -109,6 +110,8 @@ Each stage uses its own hardware resources to avoid structural hazards.
 
 The PC acts as a special case: it is written every cycle, and can be thought of as a dedicated implicit pipeline register.
 
+- ![](pictures/Pipeline_Data_Path.png)
+
 ### Control Signal Propagation
 
 All control signals are generated in the ID stage and stored in pipeline registers alongside instruction data.
@@ -120,7 +123,13 @@ All control signals are generated in the ID stage and stored in pipeline registe
 | MEM   | MemWrite, MemRead, Branch           |
 | WB    | RegWrite, MemToReg                  |
 
+- ![](pictures/Control_Signals.png)
+- ![](pictures/Pipeline_Control_Path.png)
+
 This ensures the control logic in each stage can function independently using stored signals.
+
+### Full Implementation
+- ![](pictures/Pipeline_Data_And_Control_Path.png)
 
 ---
 
@@ -151,6 +160,8 @@ Simulation is performed in ModelSim using the provided simulate.do script. The t
 
 Waveform inspection is essential for verifying that instructions flow correctly through the pipeline and that write-back occurs as expected. Each stage can be visually confirmed in the waveform window.
 
+- ![](pictures/Waves.png)
+
 ---
 
 ## ⚠️ Observed Hazards During Simulation
@@ -169,6 +180,8 @@ When a BLT instruction takes a branch, the next 1-2 instructions already in IF/I
 This results in incorrect program behavior and shows the need for **branch flush logic**.
 
 These issues are expected in a naive pipelined implementation and will be addressed in the next version of the CPU.
+
+- ![](pictures/Problems.png)
 
 ---
 
