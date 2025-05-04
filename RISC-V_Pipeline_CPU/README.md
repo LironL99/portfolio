@@ -13,7 +13,7 @@
 10. [Personal Reflection](#-personal-reflection)
 11. [How to Run](#-how-to-run)
 12. [References](#-references)
-13. [Author and Contact](#-author-and-contact)
+13. [Author and Contact](#author-and-contact)
 
 
 ---
