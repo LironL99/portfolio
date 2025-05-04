@@ -1,19 +1,20 @@
 # Pipelined RISC-V CPU in Verilog
 - [Previous Project - RISC-V Single Cycle CPU](https://github.com/LironL99/portfolio/tree/main/RISC-V_Single_Cycle_CPU)
 ## 📚 Table of Contents
-1. Project Overview
-2. Motivation & Background
-3. Pipelined vs. Single-Cycle Execution
-4. Pipeline Design Stages
-5. Internal Architecture & Pipeline Control
-6. Modular RTL Implementation
-7. Testbench & Simulation
-8. Observed Hazards During Simulation
-9. Limitations & Future Work
-10. Personal Reflection
-11. How to Run
-12. References
-13. Author and Contact
+1. [Project Overview](#-project-overview)
+2. [Motivation & Background](#-motivation--background)
+3. [Pipelined vs. Single-Cycle Execution](#-pipelined-vs-single-cycle-execution)
+4. [Pipeline Design Stages](#-pipeline-design-stages)
+5. [Internal Architecture & Pipeline Control](#-internal-architecture--pipeline-control)
+6. [Modular RTL Implementation](#-modular-rtl-implementation)
+7. [Testbench & Simulation](#-testbench--simulation)
+8. [Observed Hazards During Simulation](#-observed-hazards-during-simulation)
+9. [Limitations & Future Work](#-limitations--future-work)
+10. [Personal Reflection](#-personal-reflection)
+11. [How to Run](#-how-to-run)
+12. [References](#-references)
+13. [Author and Contact](#-author-and-contact)
+
 
 ---
 
