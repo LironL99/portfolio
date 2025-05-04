@@ -15,6 +15,7 @@
 12. [References](#-references)
 13. [Author and Contact](#author-and-contact)
 
+- ![](pictures/Waves_Sequence.gif)
 - ![](pictures/Pipeline_Data_And_Control_Path.png)
 
 
@@ -26,8 +27,6 @@ This project implements a pipelined RISC-V processor in Verilog, based on the cl
 The final processor design is modular, cleanly structured in separate RTL components and integrated through a top-level Verilog module. It supports a representative subset of the RISC-V RV32I instruction set and includes a simulation environment using ModelSim 10.5b with waveform inspection.
 
 At this stage, the design does not yet include hazard detection or resolution, which are planned for a future extension.
-
-- ![](pictures/Waves_Sequence.gif)
 
 ---
 
