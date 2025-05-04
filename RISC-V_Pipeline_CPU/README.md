@@ -15,6 +15,8 @@
 12. [References](#-references)
 13. [Author and Contact](#author-and-contact)
 
+- ![](pictures/Pipeline_Data_And_Control_Path.png)
+
 
 ---
 
@@ -129,8 +131,6 @@ All control signals are generated in the ID stage and stored in pipeline registe
 
 This ensures the control logic in each stage can function independently using stored signals.
 
-### Full Implementation
-- ![](pictures/Pipeline_Data_And_Control_Path.png)
 
 ---
 
