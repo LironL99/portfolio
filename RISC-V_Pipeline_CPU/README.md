@@ -33,7 +33,7 @@ This project was inspired by the conceptual and practical foundations laid out i
 🔄 Laundry Analogy: Just as washing, drying, folding, and storing laundry can be done in parallel for different loads, pipelining overlaps the five CPU stages to increase throughput. Although the latency for a single instruction (or load of laundry) remains unchanged, pipelining dramatically improves total system throughput when many instructions are in flight.
 
 The design also follows the principle that every piece of information required in later stages must be explicitly passed via pipeline registers, whether it's a result, an operand, or a control signal.
-- ![32135145](pictures/Analogy.png)
+- ![](pictures/Analogy.png)
 ---
 
 ## 🆚 Pipelined vs. Single-Cycle Execution
@@ -57,6 +57,8 @@ By contrast, pipelining breaks the datapath into stages and uses pipeline regist
 - However, control becomes more complex, and hazards must be addressed (in future stages)
 
 In this project, we successfully transitioned from a single-cycle CPU to a pipelined version by introducing separation between stages, handling control signal propagation, and validating that each instruction executes correctly over time.
+- ![](pictures/Comparison1.png)
+- ![](pictures/Comparison2.png)
 
 ---
 
