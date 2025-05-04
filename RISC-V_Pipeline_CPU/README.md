@@ -71,7 +71,7 @@ The processor follows a standard five-stage pipeline:
 
 1. IF – Instruction Fetch  
    - PC is used to read the instruction from instruction memory.  
-   - The instruction and PC+1 are stored in IF/ID.  
+   - The instruction and PC+4 are stored in IF/ID.  
 
 2. ID – Instruction Decode & Register Read  
    - The instruction is decoded, source registers are read, and the immediate is sign-extended.  
