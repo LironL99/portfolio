@@ -226,5 +226,5 @@ Try it Yourself: [Cornell RISC-V Interpreter](https://www.cs.cornell.edu/courses
 This project was created and maintained by **Liron Leibovich**, a fourth-year Electrical and Computer Engineering student at **Ben-Gurion University of the Negev**.
 
 📧 **Email**: [leibovichliron@gmail.com](mailto:leibovichliron@gmail.com)<br>
-🌐 **LinkedIn**: [linkedin.com/in/lironleibovich](https://linkedin.com/in/leibovichliron1)<br>
+🌐 **LinkedIn**: [linkedin.com/in/lironleibovich](https://www.linkedin.com/in/liron-leibovich1/)<br>
 💻 **Portfolio**: [lironl99.github.io](https://lironl99.github.io/)
