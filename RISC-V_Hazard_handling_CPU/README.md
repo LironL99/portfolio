@@ -153,28 +153,28 @@ id_ex ID_EX(.flush(branch_taken || stall), ...);
 
 ```verilog
 // ==== DATA HAZARD: LW followed by dependent ADD ====
-		I_Mem[4]  = 32'b00000000010000001010000110000011; // lw x3, 4(x1)      // x3 ← MEM[4]
-		I_Mem[8]  = 32'b00000000001100010000001000110011; // add x4, x2, x3    // Data hazard: rs2 = x3
-		I_Mem[12] = 32'b00000000010000000000001010010011; // addi x5, x0, 4    // Unrelated instruction
+I_Mem[4]  = 32'b00000000010000001010000110000011; // lw x3, 4(x1)      // x3 ← MEM[4]
+I_Mem[8]  = 32'b00000000001100010000001000110011; // add x4, x2, x3    // Data hazard: rs2 = x3
+I_Mem[12] = 32'b00000000010000000000001010010011; // addi x5, x0, 4    // Unrelated instruction
 
-		// ==== CONTROL HAZARD: BEQ dependent on two immediates ====
-		I_Mem[16] = 32'b00000000010100000000001000010011; // addi x4, x0, 5    // x4 ← 5
-		I_Mem[20] = 32'b00000000010100000000001010010011; // addi x5, x0, 5    // x5 ← 5
-		I_Mem[24] = 32'b00000000010100100000011001100011; // beq x4, x5, +12   // Should branch
-		I_Mem[28] = 32'b00000000011100000000010000010011; // addi x8, x0, 7    // Skipped if branch taken
-		I_Mem[32] = 32'b00000000100000000000010010010011; // addi x9, x0, 8    // Executed instead
+// ==== CONTROL HAZARD: BEQ dependent on two immediates ====
+I_Mem[16] = 32'b00000000010100000000001000010011; // addi x4, x0, 5    // x4 ← 5
+I_Mem[20] = 32'b00000000010100000000001010010011; // addi x5, x0, 5    // x5 ← 5
+I_Mem[24] = 32'b00000000010100100000011001100011; // beq x4, x5, +12   // Should branch
+I_Mem[28] = 32'b00000000011100000000010000010011; // addi x8, x0, 7    // Skipped if branch taken
+I_Mem[32] = 32'b00000000100000000000010010010011; // addi x9, x0, 8    // Executed instead
 
-		// ==== DATA HAZARD: ADD depends on previous ADDI values ====
-		I_Mem[36] = 32'b00000000101000000000010100010011; // addi x10, x0, 10  // x10 ← 10
-		I_Mem[40] = 32'b00000000010101010000010110110011; // add x11, x10, x5  // Depends on x10 and x5
+// ==== DATA HAZARD: ADD depends on previous ADDI values ====
+I_Mem[36] = 32'b00000000101000000000010100010011; // addi x10, x0, 10  // x10 ← 10
+I_Mem[40] = 32'b00000000010101010000010110110011; // add x11, x10, x5  // Depends on x10 and x5
 
-		// ==== CONTROL HAZARD: BEQ comparing two immediates, no branch taken ====
-		I_Mem[44] = 32'b00000000010100000000011000010011; // addi x12, x0, 5   // x12 ← 5
-		I_Mem[48] = 32'b00000000011000000000011010010011; // addi x13, x0, 6   // x13 ← 6
-		I_Mem[52] = 32'b00000000110101100000011001100011; // beq x12, x13, +12 // Should NOT branch
-		I_Mem[56] = 32'b00000000111100000000100000010011; // addi x16, x0, 15  // Executed normally
+// ==== CONTROL HAZARD: BEQ comparing two immediates, no branch taken ====
+I_Mem[44] = 32'b00000000010100000000011000010011; // addi x12, x0, 5   // x12 ← 5
+I_Mem[48] = 32'b00000000011000000000011010010011; // addi x13, x0, 6   // x13 ← 6
+I_Mem[52] = 32'b00000000110101100000011001100011; // beq x12, x13, +12 // Should NOT branch
+I_Mem[56] = 32'b00000000111100000000100000010011; // addi x16, x0, 15  // Executed normally
 
-		I_Mem[60] = 32'b00000000000000000000000000000000; // NOP
+I_Mem[60] = 32'b00000000000000000000000000000000; // NOP
 ```
 
 ## RTL Design Challenges and Considerations
@@ -195,10 +195,10 @@ Each challenge required simulation-based debugging and thoughtful design iterati
 
 | File                            | Description                                  |
 | ------------------------------- | -------------------------------------------- |
-| `RISCV_Top_with_stall_registered.v` | Top-level pipeline integration with hazard handling |
+| `RISCV_Top.v` | Top-level pipeline integration with hazard handling |
 | `pipeline_regs.v`               | IF/ID, ID/EX, EX/MEM, MEM/WB pipeline registers |
 | `forwarding_unit.v`             | Generates forwarding control lines           |
-| `hazard_detection_unit_registered.v` | Stalling logic for LW dependencies           |
+| `hazard_detection_unit.v`       | Stalling logic for LW dependencies           |
 | `core_modules.v`                | PC, ALU, ROM, Register File, Control Units   |
 
 ## Simulation and Testbench
@@ -206,7 +206,7 @@ Each challenge required simulation-based debugging and thoughtful design iterati
 To run simulation in ModelSim:
 
 ```tcl
-do simulate_with_stall_registered.do
+do simulate.do
 ```
 
 This script sets up the waveform viewer, loads the project, and runs the simulation.
@@ -216,10 +216,6 @@ This script sets up the waveform viewer, loads the project, and runs the simulat
 Observe the register values in the waveform or try running the instruction sequence manually:
 
 Try it Yourself: [Cornell RISC-V Interpreter](https://www.cs.cornell.edu/courses/cs3410/2019sp/riscv/interpreter/)
-
-## Personal Reflection
-
-*...to be filled by author.*
 
 ## References
 
