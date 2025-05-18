@@ -26,10 +26,10 @@ This project builds on a previously developed single-cycle RISC-V processor, whi
 
 **Supported instructions:**
 
-- **R-type**: add, sub, and, or
-- **I-type**: addi, lw
+- **R-type**: add, sub, and, or, xor, sll, srl, sra, slt
+- **I-type**: addi, andi, ori, xori, slli, srli, srai, slti, lw
 - **S-type**: sw
-- **B-type**: beq
+- **B-type**: beq, blt
 
 The move to a **5-stage pipelined architecture** offers significant performance gains through instruction-level parallelism. However, this introduces critical challenges in timing, data dependencies, and control flow that must be addressed through robust RTL design techniques.
 
