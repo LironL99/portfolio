@@ -1,0 +1,14 @@
+module alu_mul_chain (
+    input  wire        clk,
+    input  wire [31:0] a,
+    input  wire [31:0] b,
+    input  wire [31:0] c,
+    output reg  [31:0] y
+);
+    wire [31:0] mul1 = a * b;
+    wire [31:0] mul2 = mul1 * c;
+
+    always @(posedge clk) begin
+        y <= mul2;
+    end
+endmodule
