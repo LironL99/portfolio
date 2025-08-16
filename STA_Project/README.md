@@ -82,7 +82,7 @@ end
 
 ![WSS_S2b](pictures/WSS_S2b.png)  
 ![WHS_S2a](pictures/WHS_S2a.png)
-![Slack_Waveform_S2b](Report_clocks_Report_exceptions_S2b.png)
+![Slack_Waveform_S2b](Slack_Waveform_S2b.png)
 
 ---
 
