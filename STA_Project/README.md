@@ -21,7 +21,7 @@ The project simulates a realistic STA workflow that chip designers and physical 
 
 ---
 
-## Stage 1 — Baseline Constraints and Timing Validation
+## Stage 1 - Baseline Constraints and Timing Validation
 
 ### Goal
 Establish a valid STA environment with correct constraints and confirm that timing reports are meaningful.
@@ -48,7 +48,7 @@ set_false_path -from [get_ports reset_n]
 
 ---
 
-## Stage 2 — Critical Path Creation and False Path Exclusion
+## Stage 2 - Critical Path Creation and False Path Exclusion
 
 ### Goal
 Add both a real critical path and a synthetic false path, then exclude the false path to focus STA on functional timing.
@@ -86,7 +86,7 @@ end
 
 ---
 
-## Stage 3 — RTL Pipelining for Timing Closure
+## Stage 3 - RTL Pipelining for Timing Closure
 
 ### Goal
 Reduce per-cycle combinational delay on the real path using RTL pipelining.
@@ -157,7 +157,7 @@ This project provided a complete hands-on flow of **Static Timing Analysis (STA)
 At the target frequency of **100 MHz**, the design now meets timing with **WNS = +3.709 ns** and **WHS = +0.360 ns**, demonstrating a clean closure.  
 
 ### Key Takeaways  
-- Writing **accurate SDC constraints** is not a clerical task — it defines the scope of the entire STA analysis.  
+- Writing **accurate SDC constraints** is not a clerical task - it defines the scope of the entire STA analysis.  
 - **False path handling** showed me the importance of precision: being too broad can hide real problems, while being too narrow can generate unnecessary violations.  
 - **RTL-level optimization (pipelining)** is often the simplest and most effective way to improve slack without relying on tool tricks.  
 
