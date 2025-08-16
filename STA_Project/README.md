@@ -3,7 +3,7 @@
 ## Table of Contents
 - [Introduction](#introduction)
 - [Project Objectives](#project-objectives)
-- [Stage 1 - Baseline Constraints and Timing Validation](#stage-1--baseline-constraints-and-timing-validation)
+- [Stage 1 - Baseline Constraints and Timing Validation](#stage-1---baseline-constraints-and-timing-validation)
 - [Stage 2 - Critical Path Creation and False Path Exclusion](#stage-2--critical-path-creation-and-false-path-exclusion)
 - [Stage 3 - RTL Pipelining for Timing Closure](#stage-3--rtl-pipelining-for-timing-closure)
 - [Quantitative Improvement Summary](#quantitative-improvement-summary)
