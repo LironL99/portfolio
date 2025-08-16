@@ -44,8 +44,7 @@ set_false_path -from [get_ports reset_n]
 - **Worst Hold Slack (WHS):** +0.360 ns  
 - No setup/hold violations.
 
-![WSS_S1](pictures/WSS_S1.png)  
-![WHS_S1](pictures/WHS_S1.png)
+![WSS_S1](pictures/WSS_WHS_S1.png)  
 
 ---
 
