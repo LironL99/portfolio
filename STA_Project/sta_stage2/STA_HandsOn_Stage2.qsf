@@ -1,0 +1,19 @@
+# =====================================================
+# Quartus Settings File — STA Hands-On (Stage 2)
+# =====================================================
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE Auto
+set_global_assignment -name TOP_LEVEL_ENTITY top
+
+# Source files
+set_global_assignment -name VERILOG_FILE src/top.v
+set_global_assignment -name VERILOG_FILE src/alu_mul_chain.v
+set_global_assignment -name VERILOG_FILE src/false_path_chain.v
+
+# Constraints
+set_global_assignment -name SDC_FILE constraints/top.sdc
+set_global_assignment -name LAST_QUARTUS_VERSION "18.1.0 Lite Edition"
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

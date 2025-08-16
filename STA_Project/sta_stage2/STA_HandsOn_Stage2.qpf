@@ -1,0 +1,5 @@
+QUARTUS_VERSION = "18.1"
+DATE = "Thu Aug 14 00:00:00 2025"
+
+
+PROJECT_REVISION = "STA_HandsOn_Stage2"
